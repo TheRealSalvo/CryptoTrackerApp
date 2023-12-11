@@ -14,9 +14,24 @@ class MarketOverviewViewModel: ObservableObject {
     var currency: Currency = .dollars
 
     let decoder = JSONDecoder()
+    
+    var components = URLComponents(string: "https://api.coingecko.com")
 
     func getMarketData() async throws -> [MarketData] {
-        guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=100&page=1&vs_currency=usd&sparkline=true") else {
+        guard var components = self.components else{
+            throw URLError(.badURL)
+        }
+        
+        components.path       = "/api/v3/coins/markets"
+        components.queryItems = [
+            URLQueryItem(name: "vs_currency", value: "usd"),
+            URLQueryItem(name: "order",     value: "market_cap_desc"),
+            URLQueryItem(name: "per_page",  value: "100"),
+            URLQueryItem(name: "page",      value: "1"),
+            URLQueryItem(name: "sparkline", value: "true"),
+        ]
+        
+        guard let url = components.url else{
             throw URLError(.badURL)
         }
         
