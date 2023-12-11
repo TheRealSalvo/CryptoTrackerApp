@@ -9,7 +9,7 @@ import Foundation
 
 class MarketOverviewVewModel: ObservableObject {
     
-    @Published var coins = [MarketData]()
+    @Published var coins : [MarketData]?
     var currency: Currency = .dollars
 
     let decoder = JSONDecoder()
@@ -32,7 +32,7 @@ class MarketOverviewVewModel: ObservableObject {
         Task { @MainActor in
             do {
                 coins = try await getMarketData()
-                print(coins[0])
+                print(coins![0])
             } catch let error {
                 print("Error: \((error))")
             }

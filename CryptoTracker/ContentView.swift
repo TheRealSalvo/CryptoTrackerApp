@@ -25,10 +25,10 @@ struct Sparkline: Shape{
             path.addLine(to: CGPoint(x: rect.minX + (Double(i) * x_increment * xScale), y: rect.maxY - (item * yScale) ))
             i = i+1
         }
-        path.stroke(.black, lineWidth: 10.0)
         return path
     }
 }
+
 
 struct ContentView: View {
     
@@ -47,17 +47,21 @@ struct ContentView: View {
             }
             
             .padding()
-            Sparkline(points: prices).path(in: CGRect(x: 0, y: 100, width: 250.0, height: 100.0))
-                .stroke(.black, lineWidth: 10.0)
             
-            List(viewModel.coins) { coin in
-                NavigationLink {
-                    //TO DO insert a link to the coin detail view
-                } label: {
-                    HStack{
-                        Text(coin.name)
-                        Text(String(coin.currentPrice))
-                        //Text(String((coin.sparkline?.price[0])!)) //jsut to prove we were accessing the data
+            if(viewModel.coins != nil){
+                Sparkline(points: viewModel.coins!.first!.sparkline!.price)
+                    .path(in: CGRect(x: 0, y: 100, width: 250.0, height: 100.0))
+                    .stroke(.black, lineWidth: 10.0)
+                
+                List(viewModel.coins!) { coin in
+                    NavigationLink {
+                        //TO DO insert a link to the coin detail view
+                    } label: {
+                        HStack{
+                            Text(coin.name)
+                            Text(String(coin.currentPrice))
+                            //Text(String((coin.sparkline?.price[0])!)) //jsut to prove we were accessing the data
+                        }
                     }
                 }
             }
