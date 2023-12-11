@@ -30,6 +30,7 @@ class MarketOverviewViewModel: ObservableObject {
             URLQueryItem(name: "per_page",  value: "100"),
             URLQueryItem(name: "page",      value: "1"),
             URLQueryItem(name: "sparkline", value: "true"),
+            URLQueryItem(name: "x_cg_demo_api_key", value: Bundle.main.infoDictionary?["API_KEY"] as? String),
         ]
         
         guard let url = components.url else{
