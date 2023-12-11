@@ -21,6 +21,9 @@ struct ContentView: View {
                 VStack{
                     Text("Crypto Tracker: NC2")
                     Text("Powered by CoinGecko").font(.footnote)
+                    if let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String{
+                        Text("API_KEY: \(apiKey)").font(.footnote)
+                    }
                 }
             }
             
