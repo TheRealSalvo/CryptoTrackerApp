@@ -49,6 +49,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		5459DDCF2B275D8C00B29C4E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				DA9A1B402B27214900AE5B94 /* MarketOverviewViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		54D07A632B271E5D00D321A0 = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +77,7 @@
 		54D07A6E2B271E5D00D321A0 /* CryptoTracker */ = {
 			isa = PBXGroup;
 			children = (
+				5459DDCF2B275D8C00B29C4E /* ViewModels */,
 				5459DDCC2B2755CB00B29C4E /* Views */,
 				54D07A6F2B271E5D00D321A0 /* CryptoTrackerApp.swift */,
 				54D07A712B271E5D00D321A0 /* ContentView.swift */,
@@ -92,7 +101,6 @@
 			children = (
 				DA9A1B3B2B2720D600AE5B94 /* MarketData.swift */,
 				DA9A1B3D2B2720FE00AE5B94 /* Currency.swift */,
-				DA9A1B402B27214900AE5B94 /* MarketOverviewViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

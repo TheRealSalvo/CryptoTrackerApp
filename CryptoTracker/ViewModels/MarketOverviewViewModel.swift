@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MarketOverviewVewModel: ObservableObject {
+class MarketOverviewViewModel: ObservableObject {
     
     @Published var coins = [MarketData]()
     @Published var isReady = false

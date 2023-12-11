@@ -10,7 +10,7 @@ import Charts
 
 struct ContentView: View {
     
-    @ObservedObject var viewModel: MarketOverviewVewModel
+    @ObservedObject var viewModel: MarketOverviewViewModel
 
     var body: some View {
         VStack {
@@ -55,7 +55,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(viewModel: MarketOverviewVewModel())
+    ContentView(viewModel: MarketOverviewViewModel())
 }
 
 //struct MarketOverviewView_Previews: PreviewProvider {
