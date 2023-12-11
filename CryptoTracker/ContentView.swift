@@ -36,14 +36,10 @@ struct ContentView: View {
                             Text(coin.name)
                             Text(String(coin.currentPrice))
                             Spacer()
-                            Chart(coin.sparkline!.price, id: \.self) {
-                                    LineMark(
-                                        x: .value("Month", coin.sparkline!.price.firstIndex(of: $0) ?? 0),
-                                        y: .value("Price", $0)
-                                    )
-                                }
-    //                        Sparkline(points: coin.sparkline?.price ?? prices).path(in: CGRect(x: 0, y: 0, width: 60, height: 50))
-    //                            .stroke(.gray, lineWidth: 1.0)
+                            if(coin.sparkline != nil){
+                                ChartView(of: coin.sparkline!.price)
+                                    .chartXAxis(.hidden)
+                            }
                         })
                     }
                 }
