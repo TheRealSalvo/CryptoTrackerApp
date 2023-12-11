@@ -54,12 +54,17 @@ struct ContentView: View {
                 NavigationLink {
                     //TO DO insert a link to the coin detail view
                 } label: {
-                    HStack{
+                    HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, content: {
                         Text(coin.name)
                         Text(String(coin.currentPrice))
-                        //Text(String((coin.sparkline?.price[0])!)) //jsut to prove we were accessing the data
-                    }
+                        Spacer()
+                        Sparkline(points: coin.sparkline?.price ?? prices).path(in: CGRect(x: 0, y: 0, width: 60, height: 50))
+                            .stroke(.gray, lineWidth: 1.0)
+                    })
                 }
+            }
+            .refreshable {
+                viewModel.updateCoins()
             }
         }
         .onAppear {
