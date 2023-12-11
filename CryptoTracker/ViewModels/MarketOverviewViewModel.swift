@@ -11,6 +11,7 @@ class MarketOverviewViewModel: ObservableObject {
     
     @Published var coins = [MarketData]()
     @Published var isReady = false
+    
     var currency: Currency = .dollars
 
     let decoder = JSONDecoder()
@@ -35,7 +36,22 @@ class MarketOverviewViewModel: ObservableObject {
             throw URLError(.badURL)
         }
         
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        if let httpResponse = response as? HTTPURLResponse{
+            if httpResponse.statusCode == 200{
+                print("OK!")
+            }
+            if httpResponse.statusCode == 429{
+                print("Request Limit Reached!")
+                print(response)
+                if let retryAfterValue = httpResponse.value(forHTTPHeaderField: "retry-after") as Any?{
+                    print("retry after \(retryAfterValue) seconds")
+                }
+                return []
+            }
+        }
+        
         let marketData = try JSONDecoder().decode([MarketData].self, from: data)
         self.isReady = true
         return marketData
