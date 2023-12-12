@@ -326,7 +326,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CryptoTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = L228K2QMTF;
+				DEVELOPMENT_TEAM = M3C2V4Z3BV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoTracker/Info.plist;
@@ -340,7 +340,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "salvatore.attanasio29-gmail.com.CryptoTracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "paulyates-CryptoTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -356,7 +356,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CryptoTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = L228K2QMTF;
+				DEVELOPMENT_TEAM = M3C2V4Z3BV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoTracker/Info.plist;
@@ -370,7 +370,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "salvatore.attanasio29-gmail.com.CryptoTracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "paulyates-CryptoTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -26,6 +26,12 @@ struct ContentView: View {
                 }
             }
             
+//Comment this back in if you want a quick way to see what is saved in favorites - note that it doesn't refresh! you have to close the app and re open.. it's a hack to see if the data is working
+//            let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
+//            let favorites = try! modelContext.fetch(fetchDescriptor)
+//            List(favorites) { favorite in
+//                Text(favorite.name)}
+                                
             .padding()
             
             
