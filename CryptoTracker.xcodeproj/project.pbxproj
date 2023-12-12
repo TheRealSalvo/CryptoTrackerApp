@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5459DDCE2B27560F00B29C4E /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459DDCD2B27560F00B29C4E /* ChartView.swift */; };
+		5459DDD42B285EF500B29C4E /* FavoriteCoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459DDD32B285EF500B29C4E /* FavoriteCoin.swift */; };
 		54D07A702B271E5D00D321A0 /* CryptoTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D07A6F2B271E5D00D321A0 /* CryptoTrackerApp.swift */; };
 		54D07A722B271E5D00D321A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D07A712B271E5D00D321A0 /* ContentView.swift */; };
 		54D07A742B271E5F00D321A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54D07A732B271E5F00D321A0 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		5459DDD02B27BB6A00B29C4E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5459DDD12B27BC1D00B29C4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5459DDD22B27BFF300B29C4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5459DDD32B285EF500B29C4E /* FavoriteCoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoin.swift; sourceTree = "<group>"; };
 		54D07A6C2B271E5D00D321A0 /* CryptoTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D07A6F2B271E5D00D321A0 /* CryptoTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTrackerApp.swift; sourceTree = "<group>"; };
 		54D07A712B271E5D00D321A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				DA9A1B3B2B2720D600AE5B94 /* MarketData.swift */,
 				DA9A1B3D2B2720FE00AE5B94 /* Currency.swift */,
+				5459DDD32B285EF500B29C4E /* FavoriteCoin.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				54D07A722B271E5D00D321A0 /* ContentView.swift in Sources */,
 				DA9A1B412B27214900AE5B94 /* MarketOverviewViewModel.swift in Sources */,
 				54D07A702B271E5D00D321A0 /* CryptoTrackerApp.swift in Sources */,
+				5459DDD42B285EF500B29C4E /* FavoriteCoin.swift in Sources */,
 				DA9A1B3C2B2720D600AE5B94 /* MarketData.swift in Sources */,
 				5459DDCE2B27560F00B29C4E /* ChartView.swift in Sources */,
 			);

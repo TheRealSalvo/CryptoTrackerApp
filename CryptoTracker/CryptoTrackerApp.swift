@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct CryptoTrackerApp: App {
@@ -13,5 +14,6 @@ struct CryptoTrackerApp: App {
         WindowGroup {
             ContentView(viewModel: MarketOverviewViewModel())
         }
+        .modelContainer(for: FavoriteCoin.self)
     }
 }

@@ -7,8 +7,10 @@
 
 import SwiftUI
 import Charts
+import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) var modelContext
     
     @ObservedObject var viewModel: MarketOverviewViewModel
 
@@ -41,6 +43,14 @@ struct ContentView: View {
                         }
                     })
                 }
+                .swipeActions{
+                    Button{
+                        addToFavorites(coin: coin.name)
+                    } label: {
+                        Label("Favorite", systemImage: "star.fill")
+                    }
+                    .tint(.yellow)
+                }
             }
             .refreshable {
                 viewModel.updateCoins()
@@ -49,6 +59,12 @@ struct ContentView: View {
         .onAppear {
             viewModel.updateCoins()
         }
+    }
+    
+    func addToFavorites(coin: String){
+        let favorite = FavoriteCoin(name: coin)
+        modelContext.insert(favorite)
+        print(coin)
     }
 }
 
