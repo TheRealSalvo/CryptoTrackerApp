@@ -27,25 +27,23 @@ struct ContentView: View {
             .padding()
             
             
-            if(viewModel.isReady){
-                List(viewModel.coins) { coin in
-                    NavigationLink {
-                        //TO DO insert a link to the coin detail view
-                    } label: {
-                        HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, content: {
-                            Text(coin.name)
-                            Text(String(coin.currentPrice))
-                            Spacer()
-                            if(coin.sparkline != nil){
-                                ChartView(of: coin.sparkline!.price)
-                                    .chartXAxis(.hidden)
-                            }
-                        })
-                    }
+            List(viewModel.coins) { coin in
+                NavigationLink {
+                    //TO DO insert a link to the coin detail view
+                } label: {
+                    HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, content: {
+                        Text(coin.name)
+                        Text(String(coin.currentPrice))
+                        Spacer()
+                        if(coin.sparkline != nil){
+                            ChartView(of: coin.sparkline!.price)
+                                .chartXAxis(.hidden)
+                        }
+                    })
                 }
-                .refreshable {
-                    viewModel.updateCoins()
-                }
+            }
+            .refreshable {
+                viewModel.updateCoins()
             }
         }
         .onAppear {

@@ -10,7 +10,6 @@ import Foundation
 class MarketOverviewViewModel: ObservableObject {
     
     @Published var coins = [MarketData]()
-    @Published var isReady = false
     
     var currency: Currency = .dollars
 
@@ -54,7 +53,7 @@ class MarketOverviewViewModel: ObservableObject {
         }
         
         let marketData = try JSONDecoder().decode([MarketData].self, from: data)
-        self.isReady = true
+        //self.isReady = true
         return marketData
     }
     
