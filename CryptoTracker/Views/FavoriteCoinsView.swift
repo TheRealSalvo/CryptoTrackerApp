@@ -1,8 +1,8 @@
+
+//  ContentView.swift
+//  Crypto App
 //
-//  FavoriteCoinsView.swift
-//  CryptoTracker
-//
-//  Created by SHOHJAHON on 13/12/23.
+//  Created by Salvatore Capasso on 11/12/23.
 //
 
 import SwiftUI
@@ -25,8 +25,7 @@ struct MainChartsView: View {
                         
                         
                     }
-                    Text("Searching for \(searchText)")
-                                   .navigationTitle("Searchable Example")
+                  
                 }
             }
             .scrollClipDisabled()
@@ -36,9 +35,10 @@ struct MainChartsView: View {
                 //                ToolbarItem(placement: .navigationBarTrailing)
             }
             
-        }
+        }  .searchable(text: $searchText)
     }
 }
     #Preview {
         MainChartsView()
     }
+
