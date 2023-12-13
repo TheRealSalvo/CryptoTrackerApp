@@ -31,10 +31,17 @@ struct MainChartsView: View {
             .scrollClipDisabled()
             .padding()
             .navigationTitle(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Title@*/Text("Title")/*@END_MENU_TOKEN@*/)
+           
             .toolbar {
-                //                ToolbarItem(placement: .navigationBarTrailing)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName:"plus.circle")
+                           
+                    }
+                }
             }
-            
         }  .searchable(text: $searchText)
     }
 }
