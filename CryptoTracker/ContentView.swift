@@ -31,7 +31,14 @@ struct ContentView: View {
 //            let favorites = try! modelContext.fetch(fetchDescriptor)
 //            List(favorites) { favorite in
 //                Text(favorite.name)}
-                                
+                    
+            
+//            let fetchDescriptor = FetchDescriptor<WatchlistCoin>()
+//            let watchlist = try! modelContext.fetch(fetchDescriptor)
+//            List(watchlist) { watchlist in
+//                Text(watchlist.name)}
+//        
+            
             .padding()
             
             
@@ -56,6 +63,12 @@ struct ContentView: View {
                         Label("Favorite", systemImage: "star.fill")
                     }
                     .tint(.yellow)
+                    Button{
+                        addToWatchlist(coin: coin.name)
+                    } label: {
+                        Label("Add to Watchlist", systemImage: "eyeglasses")
+                    }
+                    .tint(.green)
                 }
             }
             .refreshable {
@@ -67,8 +80,14 @@ struct ContentView: View {
         }
     }
     
-    func addToFavorites(coin: String){
-        let favorite = FavoriteCoin(name: coin)
+    func addToFavorites (coin: String){
+        let favorite = FavoriteCoin(name: coin, watchlist: "")
+        modelContext.insert(favorite)
+        print(coin)
+    }
+    
+    func addToWatchlist (coin: String){
+        let favorite = FavoriteCoin(name: "", watchlist: "coin")
         modelContext.insert(favorite)
         print(coin)
     }
