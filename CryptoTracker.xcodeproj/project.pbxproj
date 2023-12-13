@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5459DDCE2B27560F00B29C4E /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459DDCD2B27560F00B29C4E /* ChartView.swift */; };
+		5459DDD42B285EF500B29C4E /* FavoriteCoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459DDD32B285EF500B29C4E /* FavoriteCoin.swift */; };
 		54D07A702B271E5D00D321A0 /* CryptoTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D07A6F2B271E5D00D321A0 /* CryptoTrackerApp.swift */; };
 		54D07A722B271E5D00D321A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D07A712B271E5D00D321A0 /* ContentView.swift */; };
 		54D07A742B271E5F00D321A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54D07A732B271E5F00D321A0 /* Assets.xcassets */; };
@@ -19,6 +20,10 @@
 
 /* Begin PBXFileReference section */
 		5459DDCD2B27560F00B29C4E /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		5459DDD02B27BB6A00B29C4E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		5459DDD12B27BC1D00B29C4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5459DDD22B27BFF300B29C4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5459DDD32B285EF500B29C4E /* FavoriteCoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoin.swift; sourceTree = "<group>"; };
 		54D07A6C2B271E5D00D321A0 /* CryptoTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D07A6F2B271E5D00D321A0 /* CryptoTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTrackerApp.swift; sourceTree = "<group>"; };
 		54D07A712B271E5D00D321A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -49,9 +54,18 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		5459DDCF2B275D8C00B29C4E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				DA9A1B402B27214900AE5B94 /* MarketOverviewViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		54D07A632B271E5D00D321A0 = {
 			isa = PBXGroup;
 			children = (
+				5459DDD22B27BFF300B29C4E /* README.md */,
 				54D07A7E2B271E9900D321A0 /* .gitignore */,
 				54D07A6E2B271E5D00D321A0 /* CryptoTracker */,
 				54D07A6D2B271E5D00D321A0 /* Products */,
@@ -69,12 +83,15 @@
 		54D07A6E2B271E5D00D321A0 /* CryptoTracker */ = {
 			isa = PBXGroup;
 			children = (
+				5459DDD12B27BC1D00B29C4E /* Info.plist */,
+				5459DDCF2B275D8C00B29C4E /* ViewModels */,
 				5459DDCC2B2755CB00B29C4E /* Views */,
 				54D07A6F2B271E5D00D321A0 /* CryptoTrackerApp.swift */,
 				54D07A712B271E5D00D321A0 /* ContentView.swift */,
 				DA9A1B3F2B27211A00AE5B94 /* Models */,
 				54D07A732B271E5F00D321A0 /* Assets.xcassets */,
 				54D07A752B271E5F00D321A0 /* Preview Content */,
+				5459DDD02B27BB6A00B29C4E /* Config.xcconfig */,
 			);
 			path = CryptoTracker;
 			sourceTree = "<group>";
@@ -92,7 +109,7 @@
 			children = (
 				DA9A1B3B2B2720D600AE5B94 /* MarketData.swift */,
 				DA9A1B3D2B2720FE00AE5B94 /* Currency.swift */,
-				DA9A1B402B27214900AE5B94 /* MarketOverviewViewModel.swift */,
+				5459DDD32B285EF500B29C4E /* FavoriteCoin.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,6 +188,7 @@
 				54D07A722B271E5D00D321A0 /* ContentView.swift in Sources */,
 				DA9A1B412B27214900AE5B94 /* MarketOverviewViewModel.swift in Sources */,
 				54D07A702B271E5D00D321A0 /* CryptoTrackerApp.swift in Sources */,
+				5459DDD42B285EF500B29C4E /* FavoriteCoin.swift in Sources */,
 				DA9A1B3C2B2720D600AE5B94 /* MarketData.swift in Sources */,
 				5459DDCE2B27560F00B29C4E /* ChartView.swift in Sources */,
 			);
@@ -181,6 +199,7 @@
 /* Begin XCBuildConfiguration section */
 		54D07A782B271E5F00D321A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5459DDD02B27BB6A00B29C4E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -244,6 +263,7 @@
 		};
 		54D07A792B271E5F00D321A0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5459DDD02B27BB6A00B29C4E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -306,9 +326,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CryptoTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = L228K2QMTF;
+				DEVELOPMENT_TEAM = M3C2V4Z3BV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CryptoTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -319,7 +340,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "salvatore.attanasio29-gmail.com.CryptoTracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "paulyates-CryptoTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -335,9 +356,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CryptoTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = L228K2QMTF;
+				DEVELOPMENT_TEAM = M3C2V4Z3BV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CryptoTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -348,7 +370,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "salvatore.attanasio29-gmail.com.CryptoTracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "paulyates-CryptoTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
