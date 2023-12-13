@@ -12,22 +12,17 @@ import SwiftData
 class FavoriteCoin{
     @Attribute(.unique) var name: String
     
- //   @Attribute(.unique) var watchlist: String
-
-    init(name: String, watchlist: String) {
+    init(name: String) {
         self.name = name
-      //  self.watchlist = watchlist
     }
-
 }
 
-//
-//@Model
-//class WatchlistCoin{
-//  //  @Attribute(.unique) 
-//    var name: String
-//    
-//    init(name: String) {
-//        self.name = name
-//    }
-//}
+
+@Model
+class WatchlistCoin{
+    @Attribute(.unique) var name: String
+    
+    init(name: String) {
+        self.name = name
+    }
+}
