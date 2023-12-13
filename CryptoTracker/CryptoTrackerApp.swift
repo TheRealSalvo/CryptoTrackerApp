@@ -8,16 +8,30 @@
 import SwiftUI
 import SwiftData
 
+// Version that doesn't set up a defaul favourite if there is not existing data
+//@main
+//struct CryptoTrackerApp: App {
+//    var body: some Scene {
+//        WindowGroup {
+//            ContentView(viewModel: MarketOverviewViewModel())
+//        }
+//        .modelContainer(for: [FavoriteCoin.self, WatchlistCoin.self])
+//    }
+//}
+
+
+
+//this version sets up bitcoin to be the favourite when the app is opened the first time
 @main
 struct CryptoTrackerApp: App {
-    
-    
+
     let container: ModelContainer
     
     init() {
         do {
-            container = try ModelContainer(for: FavoriteCoin.self)
-            
+         container = try ModelContainer(for: FavoriteCoin.self)
+         //   container = try ModelContainer(for: FavoriteCoin.self, WatchlistCoin.self)
+
             // Check if it's empty, if not returns the container that already exists
             try prepopulateDataIfNeeded()
         } catch {
@@ -30,9 +44,10 @@ struct CryptoTrackerApp: App {
         WindowGroup {
             ContentView(viewModel: MarketOverviewViewModel())
         }
-        .modelContainer(for: FavoriteCoin.self)
+.modelContainer(for: [FavoriteCoin.self, WatchlistCoin.self])
     }
     
+    //function for adding in a pre set favourite if none exists - ie on the first time a user opens the app
     @MainActor private func prepopulateDataIfNeeded() throws {
         var itemFetchDescriptor = FetchDescriptor<FavoriteCoin>()
         itemFetchDescriptor.fetchLimit = 1
