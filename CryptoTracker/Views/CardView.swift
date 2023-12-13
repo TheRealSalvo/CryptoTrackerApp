@@ -11,7 +11,6 @@ struct CardView: View {
     let card: CardModel
     
     var body: some View {
-        ZStack {
             
             VStack(alignment: .leading){
                 HStack {
@@ -29,20 +28,28 @@ struct CardView: View {
                         .foregroundStyle(Color.green)
                     Image(systemName: "triangle.fill")
                         .foregroundStyle(Color.green)
-                    
-                    
                 }
                 
                 Spacer()
                 
                 HStack {
                     VStack(alignment:.leading) {
-                        VStack(alignment: .leading) {
-                            Text(card.MarketCap)
-                            Text(card.Volume)
+                        HStack {
+                            VStack(alignment: .leading) {
+                               
+                                Text(card.MarketCap)
+                                Text(card.Volume)
+                                
+                            }   .foregroundStyle(Color.gray)
+                                .bold()
                             
-                        }   .foregroundStyle(Color.gray)
-                            .bold()
+                            Spacer()
+                            
+                            ChartView(of: [46,90,45,34,32,11])
+                                .chartXAxis(.hidden)
+                                .chartYAxis(.hidden)
+                               .frame(maxWidth: 100)
+                        }
                         
                         Spacer()
                         
@@ -53,10 +60,7 @@ struct CardView: View {
                         }
                     }
                     Spacer()
-                    VStack {
-                        Spacer()
-                        ChartView(of: [45,90])
-                    }
+             
                 }
             }
             .frame(maxHeight: 150)
@@ -66,7 +70,7 @@ struct CardView: View {
             .padding()
         }
     }
-}
+
 
 #Preview {
     let card = CardModel(Name: "BTC", Value:23.45 , ImageSymbol: Image("bitcoin"), MarketCap: "MarketCap 43.75$B", Volume: "Volume 24h 31,60$B", priceChangePercentage24h: "+0,56")
