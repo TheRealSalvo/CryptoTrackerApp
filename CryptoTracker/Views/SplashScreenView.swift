@@ -12,18 +12,23 @@ struct SplashScreenView: View {
     
     var body: some View {
         ZStack{
-            if marketVM.coins.isEmpty {
-                VStack{
-                    Image("AppIcon")
+            if (marketVM.coins.isEmpty){
+                VStack(alignment: .center){
+                    Image("inAppIcon")
                         .resizable()
-                        .frame(maxWidth: 200, maxHeight: 200)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 200)
+                        .padding(.bottom, 40)
                     Text("Powered by")
                     Image("CoinGeckoLogoWithDarkText")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 200)
-                    Text("Fetching data from server...")
-                        .padding(.top)
+                    HStack{
+                        Text("Fetching data from server...")
+                            .font(.title3)
+                        ProgressView()
+                    }.padding(.top)
                 }
             } else {
                 FavoriteCoinsView(viewModel: marketVM)
