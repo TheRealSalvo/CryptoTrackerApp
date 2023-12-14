@@ -9,10 +9,12 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @State private var isActive = false
+    @State private var marketVM : MarketOverviewViewModel? = nil
+    
     var body: some View {
         ZStack{
             if(isActive){
-                ContentView(viewModel: MarketOverviewViewModel())
+                ContentView(viewModel: marketVM ?? MarketOverviewViewModel())
             }else{
                 VStack{
                     Image("AppIcon")
@@ -28,6 +30,7 @@ struct SplashScreenView: View {
                 }
             }
         }.onAppear{
+            marketVM = MarketOverviewViewModel()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5){
                 withAnimation{
                     self.isActive = true
