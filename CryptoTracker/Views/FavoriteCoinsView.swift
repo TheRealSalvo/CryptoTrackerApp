@@ -9,13 +9,15 @@ import SwiftUI
 
 struct MainChartsView: View {
     @State private var searchText = ""
+   var viewModel : CardViewModal
+    
     var body: some View {
        
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 
                 LazyVGrid(columns: [GridItem(.fixed(360))], spacing: 7) {
-                    ForEach(CardViewModal().Cards) { card in
+                    ForEach(viewModel.Cards) { card in
                         CardView(card: card)
                             .contextMenu(menuItems: {
                                 Text("Menu Item 1")
@@ -30,7 +32,7 @@ struct MainChartsView: View {
             }
             .scrollClipDisabled()
             .padding()
-            .navigationTitle(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Title@*/Text("Title")/*@END_MENU_TOKEN@*/)
+            .navigationTitle("Favourite Coins")
            
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -46,6 +48,6 @@ struct MainChartsView: View {
     }
 }
     #Preview {
-        MainChartsView()
+        MainChartsView(viewModel: CardViewModal())
     }
 
