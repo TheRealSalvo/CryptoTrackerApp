@@ -16,3 +16,13 @@ class FavoriteCoin{
         self.name = name
     }
 }
+
+
+@Model
+class WatchlistCoin{
+    @Attribute(.unique) var name: String
+    
+    init(name: String) {
+        self.name = name
+    }
+}

@@ -25,15 +25,7 @@ struct ContentView: View {
                     Text("Powered by CoinGecko").font(.footnote)
                 }
             }
-            
-//Comment this back in if you want a quick way to see what is saved in favorites - note that it doesn't refresh! you have to close the app and re open.. it's a hack to see if the data is working
-//            let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
-//            let favorites = try! modelContext.fetch(fetchDescriptor)
-//            List(favorites) { favorite in
-//                Text(favorite.name)}
-                                
             .padding()
-            
             
             List(viewModel.coins) { coin in
                 NavigationLink {
@@ -56,21 +48,46 @@ struct ContentView: View {
                         Label("Favorite", systemImage: "star.fill")
                     }
                     .tint(.yellow)
+                    Button{
+                        addToWatchlist(coin: coin.name)
+                    } label: {
+                        Label("Add to Watchlist", systemImage: "eyeglasses")
+                    }
+                    .tint(.green)
                 }
             }
             .refreshable {
                 viewModel.updateCoins()
             }
         }
-        .onAppear {
-            viewModel.updateCoins()
+
+    }
+    
+    func addToFavorites (coin: String){
+        let favorite = FavoriteCoin(name: coin)
+        modelContext.insert(favorite)
+
+        //to debug that we are putting items in to the list correctly
+        print("Current watchlist is")
+        let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
+        let favorites = try! modelContext.fetch(fetchDescriptor)
+        for coin in favorites {
+            print(coin.name)
         }
     }
     
-    func addToFavorites(coin: String){
-        let favorite = FavoriteCoin(name: coin)
+    func addToWatchlist (coin: String){
+        let favorite = WatchlistCoin(name: coin)
         modelContext.insert(favorite)
-        print(coin)
+        //to debug that we are putting items in to the list correctly
+
+        print("Current watchlist is")
+        let fetchDescriptor2 = FetchDescriptor<WatchlistCoin>()
+        let watchlist = try! modelContext.fetch(fetchDescriptor2)
+        for coin in watchlist {
+            print(coin.name)
+        }
+
     }
 }
 
