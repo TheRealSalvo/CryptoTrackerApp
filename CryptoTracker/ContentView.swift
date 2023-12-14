@@ -60,9 +60,7 @@ struct ContentView: View {
                 viewModel.updateCoins()
             }
         }
-        .onAppear {
-            viewModel.updateCoins()
-        }
+
     }
     
     func addToFavorites (coin: String){

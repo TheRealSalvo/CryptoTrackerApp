@@ -8,15 +8,11 @@
 import SwiftUI
 
 struct SplashScreenView: View {
-    @State private var isActive = false
-    @State private var marketVM : MarketOverviewViewModel? = nil
+    @ObservedObject var marketVM: MarketOverviewViewModel
     
     var body: some View {
         ZStack{
-            if(isActive){
-                //ContentView(viewModel: marketVM ?? MarketOverviewViewModel())
-                FavoriteCoinsView(viewModel: marketVM ?? MarketOverviewViewModel())
-            }else{
+            if marketVM.coins.isEmpty {
                 VStack{
                     Image("AppIcon")
                         .resizable()
@@ -29,18 +25,13 @@ struct SplashScreenView: View {
                     Text("Fetching data from server...")
                         .padding(.top)
                 }
-            }
-        }.onAppear{
-            marketVM = MarketOverviewViewModel()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5){
-                withAnimation{
-                    self.isActive = true
-                }
+            } else {
+                ContentView(viewModel: marketVM)
             }
         }
     }
 }
-
-#Preview {
-    SplashScreenView()
-}
+//
+//#Preview {
+//    SplashScreenView(marketVM: MarketOverviewViewModel())
+//}
