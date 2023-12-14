@@ -11,6 +11,7 @@ import SwiftData
 struct AllCoinsListView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
+    
     @ObservedObject var viewModel: MarketOverviewViewModel
     
     @State private var searchText = ""
@@ -64,16 +65,9 @@ struct AllCoinsListView: View {
     func addToFavorites (coin: String){
         let favorite = FavoriteCoin(name: coin)
         modelContext.insert(favorite)
-
-        //to debug that we are putting items in to the list correctly
-//        print("Current watchlist is")
-//        let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
-//        let favorites = try! modelContext.fetch(fetchDescriptor)
-//        for coin in favorites {
-//            print(coin.name)
-//        }
     }
     
+    /* TODO: call this is parent view is WatchlistCoins*/
     func addToWatchlist (coin: String){
         let favorite = WatchlistCoin(name: coin)
         modelContext.insert(favorite)
