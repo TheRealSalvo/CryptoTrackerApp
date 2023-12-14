@@ -11,7 +11,7 @@ import SwiftData
 struct AllCoinsListView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
-    var viewModel: MarketOverviewViewModel
+    @ObservedObject var viewModel: MarketOverviewViewModel
     
     @State private var searchText = ""
     
