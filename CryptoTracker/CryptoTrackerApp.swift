@@ -33,7 +33,7 @@ struct CryptoTrackerApp: App {
          //   container = try ModelContainer(for: FavoriteCoin.self, WatchlistCoin.self)
 
             // Check if it's empty, if not returns the container that already exists
-            try prepopulateDataIfNeeded()
+            // try prepopulateDataIfNeeded()
         } catch {
             fatalError("Failed to create container")
         }
@@ -44,7 +44,7 @@ struct CryptoTrackerApp: App {
         WindowGroup {
             SplashScreenView(marketVM: MarketOverviewViewModel())
         }
-.modelContainer(for: [FavoriteCoin.self, WatchlistCoin.self])
+        .modelContainer(for: [FavoriteCoin.self, WatchlistCoin.self])
     }
     
     //function for adding in a pre set favourite if none exists - ie on the first time a user opens the app

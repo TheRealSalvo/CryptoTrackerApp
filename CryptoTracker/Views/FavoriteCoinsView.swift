@@ -6,46 +6,73 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct MainChartsView: View {
+struct FavoriteCoinsView: View {
+    @Environment(\.modelContext) var modelContext
+    @ObservedObject var viewModel: MarketOverviewViewModel
+    
+    //@Query(sort: \FavoriteCoin.id, order: .reverse)
+    @Query private var favouriteCoins: [FavoriteCoin] = []
+    
+    @State private var showSheet = false
     @State private var searchText = ""
+    
     var body: some View {
-       
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 
                 LazyVGrid(columns: [GridItem(.fixed(360))], spacing: 7) {
-                    ForEach(CardViewModal().Cards) { card in
-                        CardView(card: card)
+                    ForEach(favouriteCoins) { coin in
+                        let data = viewModel.coins.first { viewModelData in
+                            viewModelData.name == coin.name
+                        }
+                        
+                        CardView(card: Card(coin: data!))
                             .contextMenu(menuItems: {
                                 Text("Menu Item 1")
                                 Text("Menu Item 2")
                                 Text("Menu Item 3")
                             })
-                        
-                        
                     }
-                  
                 }
             }
             .scrollClipDisabled()
             .padding()
-            .navigationTitle(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Title@*/Text("Title")/*@END_MENU_TOKEN@*/)
+            .navigationTitle("Favourite Coins")
            
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        
+                        showSheet.toggle()
                     } label: {
                         Image(systemName:"plus.circle")
                            
                     }
+                    .sheet(isPresented: $showSheet) {
+                        AllCoinsListView(viewModel: self.viewModel)
+                    }
                 }
             }
-        }  .searchable(text: $searchText)
+        }.searchable(text: $searchText)
+    }
+    
+    func loadFavourites(){
+        //to debug that we are putting items in to the list correctly
+        print("Current watchlist is")
+        let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
+        let favorites = try! modelContext.fetch(fetchDescriptor)
+        for coin in favorites {
+            print(coin.name)
+        }
+
     }
 }
-    #Preview {
-        MainChartsView()
-    }
+
+
+#Preview {
+    FavoriteCoinsView(
+        viewModel: MarketOverviewViewModel()
+    )
+}
 

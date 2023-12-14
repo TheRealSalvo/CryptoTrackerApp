@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SplashScreenView: View {
-  //  @State private var isActive = false
     @ObservedObject var marketVM: MarketOverviewViewModel
     
     var body: some View {
