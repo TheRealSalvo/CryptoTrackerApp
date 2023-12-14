@@ -24,13 +24,16 @@ struct FavoriteCoinsView: View {
                 
                 LazyVGrid(columns: [GridItem(.fixed(360))], spacing: 7) {
                     ForEach(favouriteCoins) { coin in
-                        Text(coin.name)
-//                        CardView(card: Card(coin: coin))
-//                            .contextMenu(menuItems: {
-//                                Text("Menu Item 1")
-//                                Text("Menu Item 2")
-//                                Text("Menu Item 3")
-//                            })
+                        let data = viewModel.coins.first { viewModelData in
+                            viewModelData.name == coin.name
+                        }
+                        
+                        CardView(card: Card(coin: data!))
+                            .contextMenu(menuItems: {
+                                Text("Menu Item 1")
+                                Text("Menu Item 2")
+                                Text("Menu Item 3")
+                            })
                     }
                 }
             }
