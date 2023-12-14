@@ -26,12 +26,12 @@ struct SplashScreenView: View {
                         .padding(.top)
                 }
             } else {
-                ContentView(viewModel: marketVM)
+                FavoriteCoinsView(viewModel: marketVM)
             }
         }
     }
 }
-//
-//#Preview {
-//    SplashScreenView(marketVM: MarketOverviewViewModel())
-//}
+
+#Preview {
+    SplashScreenView(marketVM: MarketOverviewViewModel())
+}
