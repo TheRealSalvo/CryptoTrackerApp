@@ -1,14 +1,14 @@
 
 import SwiftUI
 
-struct CardModel: Identifiable {
+struct Card: Identifiable {
     var id = UUID()
     
-    var Name: String
-    var Value: Double
-    var ImageSymbol: Image
-    var MarketCap: String
-    var Volume: String
+    var name: String
+    var value: Double
+    var imageSymbol: Image
+    var marketCap: String
+    var volume: String
     var priceChangePercentage24h: String
 }
 
