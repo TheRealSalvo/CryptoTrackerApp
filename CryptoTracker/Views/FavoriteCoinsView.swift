@@ -12,6 +12,7 @@ struct FavoriteCoinsView: View {
     @Environment(\.modelContext) var modelContext
     @ObservedObject var viewModel: MarketOverviewViewModel
     
+    @State private var showSheet = false
     @State private var searchText = ""
     
     var body: some View {
@@ -27,8 +28,6 @@ struct FavoriteCoinsView: View {
                                 Text("Menu Item 2")
                                 Text("Menu Item 3")
                             })
-                        
-                        
                     }
                   
                 }
@@ -40,41 +39,17 @@ struct FavoriteCoinsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        
+                        showSheet.toggle()
                     } label: {
                         Image(systemName:"plus.circle")
                            
                     }
+                    .sheet(isPresented: $showSheet) {
+                        AllCoinsListView(viewModel: self.viewModel)
+                    }
                 }
             }
-        }  .searchable(text: $searchText)
-    }
-    
-    func addToFavorites (coin: String){
-        let favorite = FavoriteCoin(name: coin)
-        modelContext.insert(favorite)
-
-        //to debug that we are putting items in to the list correctly
-        print("Current watchlist is")
-        let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
-        let favorites = try! modelContext.fetch(fetchDescriptor)
-        for coin in favorites {
-            print(coin.name)
-        }
-    }
-    
-    func addToWatchlist (coin: String){
-        let favorite = WatchlistCoin(name: coin)
-        modelContext.insert(favorite)
-        //to debug that we are putting items in to the list correctly
-
-        print("Current watchlist is")
-        let fetchDescriptor2 = FetchDescriptor<WatchlistCoin>()
-        let watchlist = try! modelContext.fetch(fetchDescriptor2)
-        for coin in watchlist {
-            print(coin.name)
-        }
-
+        }.searchable(text: $searchText)
     }
 }
 
