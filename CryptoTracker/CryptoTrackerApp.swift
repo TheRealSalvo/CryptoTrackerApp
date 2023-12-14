@@ -42,7 +42,8 @@ struct CryptoTrackerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: MarketOverviewViewModel())
+            SplashScreenView()
+            //ContentView(viewModel: MarketOverviewViewModel())
         }
 .modelContainer(for: [FavoriteCoin.self, WatchlistCoin.self])
     }
