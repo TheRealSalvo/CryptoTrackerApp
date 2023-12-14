@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct CardView: View {
-    let card: CardModel
+    let card: Card
     
     var body: some View {
             
             VStack(alignment: .leading){
                 HStack {
-                    card.ImageSymbol
+                    card.imageSymbol
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 50)
                         .frame(height: 50)
-                    Text(card.Name)
+                    Text(card.name)
                         .font(.title)
                         .bold()
                         .foregroundStyle(Color.white)
@@ -37,8 +37,8 @@ struct CardView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                
-                                Text(card.MarketCap)
-                                Text(card.Volume)
+                                Text(card.marketCap)
+                                Text(card.volume)
                                 
                             }   .foregroundStyle(Color.gray)
                                 .bold()
@@ -54,9 +54,9 @@ struct CardView: View {
                         Spacer()
                         
                         VStack(alignment: .leading) {
-                            Text("\(card.Value)$")
+                            Text("\(card.value)$")
                                 .foregroundStyle(Color.white)
-                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                                .font(.title)
                         }
                     }
                     Spacer()
@@ -73,6 +73,6 @@ struct CardView: View {
 
 
 #Preview {
-    let card = CardModel(Name: "BTC", Value:23.45 , ImageSymbol: Image("bitcoin"), MarketCap: "MarketCap 43.75$B", Volume: "Volume 24h 31,60$B", priceChangePercentage24h: "+0,56")
+    let card = Card(name: "BTC", value:23.45 , imageSymbol: Image("bitcoin"), marketCap: "MarketCap 43.75$B", volume: "Volume 24h 31,60$B", priceChangePercentage24h: "+0,56")
     return CardView(card: card)
 }
