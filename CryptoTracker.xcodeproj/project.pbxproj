@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5402F1662B2AC920002BC818 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5402F1652B2AC920002BC818 /* SplashScreenView.swift */; };
 		5459DDCE2B27560F00B29C4E /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459DDCD2B27560F00B29C4E /* ChartView.swift */; };
 		5459DDD42B285EF500B29C4E /* FavoriteCoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459DDD32B285EF500B29C4E /* FavoriteCoin.swift */; };
 		54D07A702B271E5D00D321A0 /* CryptoTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D07A6F2B271E5D00D321A0 /* CryptoTrackerApp.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5402F1652B2AC920002BC818 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		5459DDCD2B27560F00B29C4E /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		5459DDD02B27BB6A00B29C4E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5459DDD12B27BC1D00B29C4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				5459DDCD2B27560F00B29C4E /* ChartView.swift */,
+				5402F1652B2AC920002BC818 /* SplashScreenView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				5459DDD42B285EF500B29C4E /* FavoriteCoin.swift in Sources */,
 				DA9A1B3C2B2720D600AE5B94 /* MarketData.swift in Sources */,
 				5459DDCE2B27560F00B29C4E /* ChartView.swift in Sources */,
+				5402F1662B2AC920002BC818 /* SplashScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
