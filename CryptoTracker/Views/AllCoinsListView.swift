@@ -17,7 +17,6 @@ struct AllCoinsListView: View {
     
     var list: some View{
         List(viewModel.coins) { coin in
-            var added : Bool = false
             HStack(alignment: .center, content: {
                 Image(coin.image)
                 
@@ -33,7 +32,6 @@ struct AllCoinsListView: View {
                 }
                 Button(action: {
                     addToFavorites(coin: coin.name)
-                    added.toggle()
                 }, label: {
                     Image(systemName: "plus")
                 })
@@ -68,12 +66,12 @@ struct AllCoinsListView: View {
         modelContext.insert(favorite)
 
         //to debug that we are putting items in to the list correctly
-        print("Current watchlist is")
-        let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
-        let favorites = try! modelContext.fetch(fetchDescriptor)
-        for coin in favorites {
-            print(coin.name)
-        }
+//        print("Current watchlist is")
+//        let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
+//        let favorites = try! modelContext.fetch(fetchDescriptor)
+//        for coin in favorites {
+//            print(coin.name)
+//        }
     }
     
     func addToWatchlist (coin: String){
