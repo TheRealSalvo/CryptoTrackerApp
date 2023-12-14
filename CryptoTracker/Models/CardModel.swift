@@ -10,14 +10,16 @@ struct Card: Identifiable {
     var marketCap       : Double
     var volume          : Double
     var priceChangePercentage24h : Double
+    var sparkline       : [Double]
     
-    init(name: String, value: Double, imageSymbol: Image, marketCap: Double, volume: Double, priceChangePercentage24h: Double){
+    init(name: String, value: Double, imageSymbol: Image, marketCap: Double, volume: Double, priceChangePercentage24h: Double = 0.0, sparkline: [Double] = []){
         self.name        = name
         self.value       = value
         self.imageSymbol = imageSymbol
         self.marketCap   = marketCap
         self.volume      = volume
         self.priceChangePercentage24h = priceChangePercentage24h
+        self.sparkline  = sparkline
     }
     
     init(coin: MarketData){
@@ -27,6 +29,7 @@ struct Card: Identifiable {
         self.marketCap   = coin.marketCap
         self.volume      = coin.totalVolume
         self.priceChangePercentage24h = coin.priceChangePercentage24h
+        self.sparkline  = coin.sparkline?.price ?? []
     }
 }
 
