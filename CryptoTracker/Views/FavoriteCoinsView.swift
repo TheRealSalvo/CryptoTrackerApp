@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct MainChartsView: View {
+struct FavoriteCoinsView: View {
     @State private var searchText = ""
-   var viewModel : CardViewModal
+   var viewModel : CardViewModel
     
     var body: some View {
        
@@ -17,7 +17,7 @@ struct MainChartsView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 
                 LazyVGrid(columns: [GridItem(.fixed(360))], spacing: 7) {
-                    ForEach(viewModel.Cards) { card in
+                    ForEach(viewModel.cards) { card in
                         CardView(card: card)
                             .contextMenu(menuItems: {
                                 Text("Menu Item 1")
@@ -48,6 +48,6 @@ struct MainChartsView: View {
     }
 }
     #Preview {
-        MainChartsView(viewModel: CardViewModal())
+        FavoriteCoinsView(viewModel: CardViewModel())
     }
 
