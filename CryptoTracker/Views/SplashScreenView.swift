@@ -14,7 +14,8 @@ struct SplashScreenView: View {
     var body: some View {
         ZStack{
             if(isActive){
-                ContentView(viewModel: marketVM ?? MarketOverviewViewModel())
+                //ContentView(viewModel: marketVM ?? MarketOverviewViewModel())
+                FavoriteCoinsView(viewModel: marketVM ?? MarketOverviewViewModel())
             }else{
                 VStack{
                     Image("AppIcon")
