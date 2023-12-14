@@ -48,6 +48,35 @@ struct FavoriteCoinsView: View {
     }
 }
     #Preview {
-        FavoriteCoinsView(viewModel: CardViewModel())
+        FavoriteCoinsView(viewModel: CardViewModel(
+            coins: [
+                MarketData(
+                    id: "btc",
+                    symbol: "BTC",
+                    name: "Bitcoin",
+                    image: "bitcoin",
+                    currentPrice: 123.45,
+                    marketCap: 123.45,
+                    marketCapRank: 1,
+                    totalVolume: 123.45,
+                    high24h: 123.45,
+                    low24h: 123.45,
+                    priceChange24h: 123.45,
+                    priceChangePercentage24h: 123.45,
+                    marketCapChange24h: 123.45,
+                    marketCapChangePercentage24h: 123.45,
+                    circulatingSupply: 123.45,
+                    totalSupply: 123.45,
+                    maxSupply: 123.45,
+                    ath: 123.45,
+                    athChangePercentage: 123.45,
+                    athDate: "12-12-12",
+                    atl: 123.45,
+                    atlChangePercentage: 123.45,
+                    atlDate: "12-12-12",
+                    lastUpdated: "12-12-12",
+                    sparkline: MarketData.Sparkline(price: [1,2,3]))
+            ]
+        ))
     }
 
