@@ -24,7 +24,7 @@ struct CardView: View {
                         .bold()
                         .foregroundStyle(Color.white)
                     Spacer()
-                    Text(card.priceChangePercentage24h)
+                    Text("\(card.priceChangePercentage24h)")
                         .foregroundStyle(Color.green)
                     Image(systemName: "triangle.fill")
                         .foregroundStyle(Color.green)
@@ -37,8 +37,8 @@ struct CardView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                
-                                Text(card.marketCap)
-                                Text(card.volume)
+                                Text("\(card.marketCap)$")
+                                Text("\(card.volume)")
                                 
                             }   .foregroundStyle(Color.gray)
                                 .bold()
@@ -73,6 +73,6 @@ struct CardView: View {
 
 
 #Preview {
-    let card = Card(name: "BTC", value:23.45 , imageSymbol: Image("bitcoin"), marketCap: "MarketCap 43.75$B", volume: "Volume 24h 31,60$B", priceChangePercentage24h: "+0,56")
+    let card = Card(name: "BTC", value:23.45 , imageSymbol: Image("bitcoin"), marketCap: 43.75, volume: 31.60, priceChangePercentage24h: 0.56)
     return CardView(card: card)
 }
