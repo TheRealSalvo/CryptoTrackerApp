@@ -17,33 +17,27 @@ struct AllCoinsListView: View {
     
     var list: some View{
         List(viewModel.coins) { coin in
-            NavigationLink {
-                //TO DO insert a link to the coin detail view
-            } label: {
-                HStack(alignment: .center, content: {
+            var added : Bool = false
+            HStack(alignment: .center, content: {
+                Image(coin.image)
+                
+                VStack(alignment: .leading){
                     Text(coin.name)
                     Text(String(coin.currentPrice))
-                    Spacer()
-                    if(coin.sparkline != nil){
-                        ChartView(of: coin.sparkline!.price)
-                            .chartXAxis(.hidden)
-                    }
-                })
-            }
-            .swipeActions{
-                Button{
+                }
+                Text("\(coin.priceChangePercentage24h)")
+                if(coin.sparkline != nil){
+                    ChartView(of: coin.sparkline!.price)
+                        .chartXAxis(.hidden)
+                        .chartYAxis(.hidden)
+                }
+                Button(action: {
                     addToFavorites(coin: coin.name)
-                } label: {
-                    Label("Favorite", systemImage: "star.fill")
-                }
-                .tint(.yellow)
-                Button{
-                    addToWatchlist(coin: coin.name)
-                } label: {
-                    Label("Add to Watchlist", systemImage: "eyeglasses")
-                }
-                .tint(.green)
-            }
+                    added.toggle()
+                }, label: {
+                    Image(systemName: "plus")
+                })
+            })
         }
     }
     
