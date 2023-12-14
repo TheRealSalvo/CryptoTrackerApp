@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct FavoriteCoinsView: View {
+    @Environment(\.modelContext) var modelContext
+    @ObservedObject var viewModel: MarketOverviewViewModel
+    
     @State private var searchText = ""
-   var viewModel : CardViewModel
     
     var body: some View {
        
@@ -17,8 +20,8 @@ struct FavoriteCoinsView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 
                 LazyVGrid(columns: [GridItem(.fixed(360))], spacing: 7) {
-                    ForEach(viewModel.cards) { card in
-                        CardView(card: card)
+                    ForEach(viewModel.coins) { coin in
+                        CardView(card: Card(coin: coin))
                             .contextMenu(menuItems: {
                                 Text("Menu Item 1")
                                 Text("Menu Item 2")
@@ -46,37 +49,39 @@ struct FavoriteCoinsView: View {
             }
         }  .searchable(text: $searchText)
     }
-}
-    #Preview {
-        FavoriteCoinsView(viewModel: CardViewModel(
-            coins: [
-                MarketData(
-                    id: "btc",
-                    symbol: "BTC",
-                    name: "Bitcoin",
-                    image: "bitcoin",
-                    currentPrice: 123.45,
-                    marketCap: 123.45,
-                    marketCapRank: 1,
-                    totalVolume: 123.45,
-                    high24h: 123.45,
-                    low24h: 123.45,
-                    priceChange24h: 123.45,
-                    priceChangePercentage24h: 123.45,
-                    marketCapChange24h: 123.45,
-                    marketCapChangePercentage24h: 123.45,
-                    circulatingSupply: 123.45,
-                    totalSupply: 123.45,
-                    maxSupply: 123.45,
-                    ath: 123.45,
-                    athChangePercentage: 123.45,
-                    athDate: "12-12-12",
-                    atl: 123.45,
-                    atlChangePercentage: 123.45,
-                    atlDate: "12-12-12",
-                    lastUpdated: "12-12-12",
-                    sparkline: MarketData.Sparkline(price: [1,2,3]))
-            ]
-        ))
+    
+    func addToFavorites (coin: String){
+        let favorite = FavoriteCoin(name: coin)
+        modelContext.insert(favorite)
+
+        //to debug that we are putting items in to the list correctly
+        print("Current watchlist is")
+        let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
+        let favorites = try! modelContext.fetch(fetchDescriptor)
+        for coin in favorites {
+            print(coin.name)
+        }
     }
+    
+    func addToWatchlist (coin: String){
+        let favorite = WatchlistCoin(name: coin)
+        modelContext.insert(favorite)
+        //to debug that we are putting items in to the list correctly
+
+        print("Current watchlist is")
+        let fetchDescriptor2 = FetchDescriptor<WatchlistCoin>()
+        let watchlist = try! modelContext.fetch(fetchDescriptor2)
+        for coin in watchlist {
+            print(coin.name)
+        }
+
+    }
+}
+
+
+#Preview {
+    FavoriteCoinsView(
+        viewModel: MarketOverviewViewModel()
+    )
+}
 
