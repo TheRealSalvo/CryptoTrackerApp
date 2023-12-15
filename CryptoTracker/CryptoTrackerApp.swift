@@ -29,7 +29,8 @@ struct CryptoTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             //ContentView(viewModel: MarketOverviewViewModel())
-            DetailView(detailModel: DetailViewModel())
+            DetailView(detailModel: MarketData(id: "", symbol: "BTC", name: "Bitcoin", image: "bitcoin", currentPrice: 20.45, marketCap: 22.34, marketCapRank: 2, totalVolume: 45.56, high24h: 22.45, low24h: 17.26, priceChange24h: 5.345, priceChangePercentage24h: 0.456, marketCapChange24h: 0.567, marketCapChangePercentage24h: 0.543, circulatingSupply: 0.454, totalSupply: 23.54, maxSupply: 23.54, ath: 0.456, athChangePercentage: 0.456, athDate: "", atl: 0.456, atlChangePercentage: 0.456, atlDate: "", lastUpdated: "16/04/2023", sparkline: nil))
+
         }
         .modelContainer(for: FavoriteCoin.self)
     }
