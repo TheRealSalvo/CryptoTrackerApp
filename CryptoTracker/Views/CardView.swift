@@ -45,8 +45,10 @@ struct CardView: View {
                             
                             Spacer()
                             
-                            ChartView(of: card.sparkline)
-                               .frame(maxWidth: 100)
+                            if(card.sparkline.count > 0){
+                                ChartView(of: card.sparkline)
+                                    .frame(maxWidth: 100)
+                            }
                         }
                         
                         Spacer()
