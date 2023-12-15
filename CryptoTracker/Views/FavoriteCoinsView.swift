@@ -52,11 +52,16 @@ struct FavoriteCoinsView: View {
                            
                     }
                     .sheet(isPresented: $showSheet) {
-                        AllCoinsListView(viewModel: self.viewModel)
+                        AllCoinsListView(viewModel: self.viewModel, query: favouriteCoins, function: addToFavorites)
                     }
                 }
             }
         }.searchable(text: $searchText)
+    }
+    
+    func addToFavorites (coin: String){
+        let newFavoriteCoin = FavoriteCoin(name: coin)
+        modelContext.insert(newFavoriteCoin)
     }
     
     func removeFromFavourite(coin: FavoriteCoin){
