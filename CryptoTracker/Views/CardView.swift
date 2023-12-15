@@ -7,11 +7,15 @@ struct CardView: View {
             
             VStack(alignment: .leading){
                 HStack {
-                    card.imageSymbol
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50)
-                        .frame(height: 50)
+                    AsyncImage(url: URL(string: card.imageURL)){ image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                        
                     Text(card.name)
                         .font(.title)
                         .bold()
@@ -36,8 +40,10 @@ struct CardView: View {
                             .bold()
                             Spacer()
                             
-                            ChartView(of: card.sparkline)
-                               .frame(maxWidth: 100)
+                            if(card.sparkline.count > 0){
+                                ChartView(of: card.sparkline)
+                                    .frame(maxWidth: 100)
+                            }
                         }
                         
                         Spacer()
@@ -84,11 +90,8 @@ struct CardView: View {
     }
 }
 
-// Preview
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        let card = Card(name: "BTC", value: 24.4, imageSymbol: Image("bitcoin"), marketCap: 837_000_000_000, volume:  837_000_000_000, priceChangePercentage24h: 0.56, sparkline: [0, 3])
-        CardView(card: card)
-    }
+#Preview {
+    let card = Card(name: "BTC", value: 24.4, imageSymbol: "bitcoin", marketCap: 837_000_000_000, volume:  837_000_000_000, priceChangePercentage24h: 0.56, sparkline: [0, 3])
+    return CardView(card: card)
 }
 
