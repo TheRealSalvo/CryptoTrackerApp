@@ -19,7 +19,13 @@ struct AllCoinsListView: View {
     var list: some View{
         List(viewModel.coins) { coin in
             HStack(alignment: .center, content: {
-                Image(coin.image)
+                AsyncImage(url: URL(string: coin.image)){ image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                } placeholder: {
+                    ProgressView()
+                }
                 
                 VStack(alignment: .leading){
                     Text(coin.name)
