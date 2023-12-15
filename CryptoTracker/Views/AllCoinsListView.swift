@@ -28,8 +28,6 @@ struct AllCoinsListView: View {
                 Text("\(coin.priceChangePercentage24h)")
                 if(coin.sparkline != nil){
                     ChartView(of: coin.sparkline!.price)
-                        .chartXAxis(.hidden)
-                        .chartYAxis(.hidden)
                 }
                 Button(action: {
                     addToFavorites(coin: coin.name)
