@@ -16,10 +16,15 @@
 		54D07A722B271E5D00D321A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D07A712B271E5D00D321A0 /* ContentView.swift */; };
 		54D07A742B271E5F00D321A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54D07A732B271E5F00D321A0 /* Assets.xcassets */; };
 		54D07A772B271E5F00D321A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54D07A762B271E5F00D321A0 /* Preview Assets.xcassets */; };
+
+		8AA55F1B2B29C7EF00DE3316 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA55F1A2B29C7EF00DE3316 /* DetailView.swift */; };
+		8AA55F232B2AF86000DE3316 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA55F222B2AF86000DE3316 /* DetailModel.swift */; };
+		8AA55F252B2AF88F00DE3316 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA55F242B2AF88F00DE3316 /* DetailViewModel.swift */; };
 		656675472B29C41700DCD8FE /* FavoriteCoinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656675462B29C41700DCD8FE /* FavoriteCoinsView.swift */; };
 		6566754B2B29C5FA00DCD8FE /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566754A2B29C5FA00DCD8FE /* CardViewModel.swift */; };
 		6566754D2B29C62400DCD8FE /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566754C2B29C62400DCD8FE /* CardModel.swift */; };
 		6566754F2B29C66C00DCD8FE /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566754E2B29C66C00DCD8FE /* CardView.swift */; };
+
 		DA9A1B3C2B2720D600AE5B94 /* MarketData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9A1B3B2B2720D600AE5B94 /* MarketData.swift */; };
 		DA9A1B3E2B2720FE00AE5B94 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9A1B3D2B2720FE00AE5B94 /* Currency.swift */; };
 		DA9A1B412B27214900AE5B94 /* MarketOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9A1B402B27214900AE5B94 /* MarketOverviewViewModel.swift */; };
@@ -39,11 +44,17 @@
 		54D07A732B271E5F00D321A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54D07A762B271E5F00D321A0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		54D07A7E2B271E9900D321A0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+
+		8AA55F192B29C6F700DE3316 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		8AA55F1A2B29C7EF00DE3316 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		8AA55F222B2AF86000DE3316 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
+		8AA55F242B2AF88F00DE3316 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		656675462B29C41700DCD8FE /* FavoriteCoinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoinsView.swift; sourceTree = "<group>"; };
 		656675492B29C4D600DCD8FE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		6566754A2B29C5FA00DCD8FE /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		6566754C2B29C62400DCD8FE /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		6566754E2B29C66C00DCD8FE /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+
 		DA9A1B3B2B2720D600AE5B94 /* MarketData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketData.swift; sourceTree = "<group>"; };
 		DA9A1B3D2B2720FE00AE5B94 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		DA9A1B402B27214900AE5B94 /* MarketOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketOverviewViewModel.swift; sourceTree = "<group>"; };
@@ -64,6 +75,8 @@
 			isa = PBXGroup;
 			children = (
 				5459DDCD2B27560F00B29C4E /* ChartView.swift */,
+        
+				8AA55F1A2B29C7EF00DE3316 /* DetailView.swift */,
 				5402F1652B2AC920002BC818 /* SplashScreenView.swift */,
 				656675462B29C41700DCD8FE /* FavoriteCoinsView.swift */,
 				6566754E2B29C66C00DCD8FE /* CardView.swift */,
@@ -77,6 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				DA9A1B402B27214900AE5B94 /* MarketOverviewViewModel.swift */,
+				8AA55F242B2AF88F00DE3316 /* DetailViewModel.swift */,
+
 				6566754A2B29C5FA00DCD8FE /* CardViewModel.swift */,
 			);
 			path = ViewModels;
@@ -112,6 +127,7 @@
 				DA9A1B3F2B27211A00AE5B94 /* Models */,
 				54D07A732B271E5F00D321A0 /* Assets.xcassets */,
 				54D07A752B271E5F00D321A0 /* Preview Content */,
+				8AA55F192B29C6F700DE3316 /* Config.xcconfig */,
 			);
 			path = CryptoTracker;
 			sourceTree = "<group>";
@@ -130,6 +146,7 @@
 				6566754C2B29C62400DCD8FE /* CardModel.swift */,
 				DA9A1B3B2B2720D600AE5B94 /* MarketData.swift */,
 				DA9A1B3D2B2720FE00AE5B94 /* Currency.swift */,
+				8AA55F222B2AF86000DE3316 /* DetailModel.swift */,
 				5459DDD32B285EF500B29C4E /* FavoriteCoin.swift */,
 			);
 			path = Models;
@@ -207,12 +224,18 @@
 			files = (
 				DA9A1B3E2B2720FE00AE5B94 /* Currency.swift in Sources */,
 				5402F16B2B2C58A8002BC818 /* WatchlistCoinsView.swift in Sources */,
+				8AA55F1B2B29C7EF00DE3316 /* DetailView.swift in Sources */,
+				54D07A722B271E5D00D321A0 /* ContentView.swift in Sources */,
+				8AA55F252B2AF88F00DE3316 /* DetailViewModel.swift in Sources */,
+
 				656675472B29C41700DCD8FE /* FavoriteCoinsView.swift in Sources */,
 				54D07A722B271E5D00D321A0 /* ContentView.swift in Sources */,
 				5402F1692B2B0BB6002BC818 /* AllCoinsListView.swift in Sources */,
+
 				DA9A1B412B27214900AE5B94 /* MarketOverviewViewModel.swift in Sources */,
 				54D07A702B271E5D00D321A0 /* CryptoTrackerApp.swift in Sources */,
 				5459DDD42B285EF500B29C4E /* FavoriteCoin.swift in Sources */,
+				8AA55F232B2AF86000DE3316 /* DetailModel.swift in Sources */,
 				DA9A1B3C2B2720D600AE5B94 /* MarketData.swift in Sources */,
 				5459DDCE2B27560F00B29C4E /* ChartView.swift in Sources */,
 				5402F1662B2AC920002BC818 /* SplashScreenView.swift in Sources */,
@@ -352,7 +375,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CryptoTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = M3C2V4Z3BV;
+
+				DEVELOPMENT_TEAM = NNZWWH5M7V;
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoTracker/Info.plist;
@@ -366,7 +391,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "paulyates-CryptoTracker";
+
+				PRODUCT_BUNDLE_IDENTIFIER = com.ShoxMamadaliev.Fedora.Wallet;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -382,7 +409,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CryptoTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = M3C2V4Z3BV;
+
+				DEVELOPMENT_TEAM = NNZWWH5M7V;
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoTracker/Info.plist;
@@ -396,7 +425,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "paulyates-CryptoTracker";
+
+				PRODUCT_BUNDLE_IDENTIFIER = com.ShoxMamadaliev.Fedora.Wallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

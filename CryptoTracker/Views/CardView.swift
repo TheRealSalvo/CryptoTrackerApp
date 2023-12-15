@@ -40,13 +40,11 @@ struct CardView: View {
                     VStack(alignment:.leading) {
                         HStack {
                             VStack(alignment: .leading) {
-                               
-                                Text("\(card.marketCap)$")
-                                Text("\(card.volume)")
-                                
+                                Text(String(format: "MarketCap: $%.02fB", card.marketCap));
+                                Text(String(format: "Volume 24h: $%.01fB", card.volume));
                             }   .foregroundStyle(Color.gray)
                                 .bold()
-                            
+//                            Text(String(format: "Tip Amount: $%.02f", tipAmount))
                             Spacer()
                             
                             if(card.sparkline.count > 0){
@@ -61,6 +59,9 @@ struct CardView: View {
                             Text("\(card.value)$")
                                 .foregroundStyle(Color.white)
                                 .font(.title)
+                            let myDouble = 9999.99
+                            let currencyFormatter = NumberFormatter()
+                            
                         }
                     }
                     Spacer()
@@ -70,7 +71,7 @@ struct CardView: View {
             .frame(maxHeight: 150)
             .padding()
             .background(.banana)
-            .cornerRadius(10)
+            .cornerRadius(20)
             .padding()
         }
     }
