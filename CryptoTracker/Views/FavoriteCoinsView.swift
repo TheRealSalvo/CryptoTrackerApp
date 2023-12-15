@@ -18,7 +18,6 @@ struct FavoriteCoinsView: View {
     @State private var showSheet = false
     @State private var searchText = ""
     
-    //CHECK IF I USEED / NEEDED THIS
     let alertTitle: String = "Api error"
     
     var body: some View {
@@ -52,6 +51,7 @@ struct FavoriteCoinsView: View {
                         Image(systemName:"plus.circle")
                            
                     }
+                    .accessibilityLabel("Add coin to favourites")
                     .sheet(isPresented: $showSheet) {
                         AllCoinsListView(viewModel: self.viewModel)
                     }
@@ -79,10 +79,8 @@ struct FavoriteCoinsView: View {
         for coin in favorites {
             print(coin.name)
         }
-
     }
 }
-
 
 #Preview {
     FavoriteCoinsView(

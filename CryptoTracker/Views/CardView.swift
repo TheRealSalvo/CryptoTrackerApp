@@ -67,6 +67,10 @@ struct CardView: View {
             .background(.banana)
             .cornerRadius(20)
             .padding()
+            .accessibilityElement()
+            .accessibilityLabel("Coin information card")
+            .accessibilityValue(String("Coin \(card.name), price \(card.value), 24 hour price change \(card.priceChangePercentage24h). Market cap \(card.marketCap), 24 hour volume \(card.volume)."))
+        //add currency to voiceover
         }
     }
 
