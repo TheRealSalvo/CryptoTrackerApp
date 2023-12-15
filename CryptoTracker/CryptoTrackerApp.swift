@@ -8,18 +8,32 @@
 import SwiftUI
 import SwiftData
 
+// Version that doesn't set up a defaul favourite if there is not existing data
+//@main
+//struct CryptoTrackerApp: App {
+//    var body: some Scene {
+//        WindowGroup {
+//            ContentView(viewModel: MarketOverviewViewModel())
+//        }
+//        .modelContainer(for: [FavoriteCoin.self, WatchlistCoin.self])
+//    }
+//}
+
+
+
+//this version sets up bitcoin to be the favourite when the app is opened the first time
 @main
 struct CryptoTrackerApp: App {
-    
-    
+
     let container: ModelContainer
     
     init() {
         do {
-            container = try ModelContainer(for: FavoriteCoin.self)
-            
+         container = try ModelContainer(for: FavoriteCoin.self)
+         //   container = try ModelContainer(for: FavoriteCoin.self, WatchlistCoin.self)
+
             // Check if it's empty, if not returns the container that already exists
-            try prepopulateDataIfNeeded()
+            // try prepopulateDataIfNeeded()
         } catch {
             fatalError("Failed to create container")
         }
@@ -28,13 +42,14 @@ struct CryptoTrackerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            //ContentView(viewModel: MarketOverviewViewModel())
-            DetailView(detailModel: MarketData(id: "", symbol: "BTC", name: "Bitcoin", image: "bitcoin", currentPrice: 20.45, marketCap: 22.34, marketCapRank: 2, totalVolume: 45.56, high24h: 22.45, low24h: 17.26, priceChange24h: 5.345, priceChangePercentage24h: 0.456, marketCapChange24h: 0.567, marketCapChangePercentage24h: 0.543, circulatingSupply: 0.454, totalSupply: 23.54, maxSupply: 23.54, ath: 0.456, athChangePercentage: 0.456, athDate: "", atl: 0.456, atlChangePercentage: 0.456, atlDate: "", lastUpdated: "16/04/2023", sparkline: nil))
+
+            SplashScreenView(marketVM: MarketOverviewViewModel())
 
         }
-        .modelContainer(for: FavoriteCoin.self)
+        .modelContainer(for: [FavoriteCoin.self, WatchlistCoin.self])
     }
     
+    //function for adding in a pre set favourite if none exists - ie on the first time a user opens the app
     @MainActor private func prepopulateDataIfNeeded() throws {
         var itemFetchDescriptor = FetchDescriptor<FavoriteCoin>()
         itemFetchDescriptor.fetchLimit = 1
