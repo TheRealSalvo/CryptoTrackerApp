@@ -46,42 +46,15 @@ class MarketOverviewViewModel: ObservableObject {
                 return []
             }
             
-            switch httpResponse.statusCode {
-            case 200:
-                return try JSONDecoder().decode([MarketData].self, from: data)
-            case 429:
-                alertContentString = "Request Limit Reached"
-            case 401:
-                alertContentString = "API key invalid"
-            case 402:
-                alertContentString = "Payment required for the API"
-            case 403:
-                alertContentString = "Unauthorized request"
-            case 404:
-                alertContentString = "Not found"
-            default:
-                alertContentString = "Error: code \(httpResponse.statusCode)"
-            }
+            return try handleHTTPResponses(httpResponse, data: data)
+            
         }
         catch {
-            if let urlError = error as? URLError {
-                switch urlError.code {
-                case .notConnectedToInternet:
-                    alertContentString = "No network connection"
-                case .timedOut:
-                    alertContentString = "Request timed out"
-                default:
-                    alertContentString = "URL Error: \(urlError)"
-                }
-            } else {
-                alertContentString = "Error: \(error.localizedDescription)"
-            }
+            errorHandler(error)
         }
         showAPIAlert = true
         return []
     }
-    
-    
     
     init() {
         updateCoins()
@@ -92,11 +65,47 @@ class MarketOverviewViewModel: ObservableObject {
             do {
                 coins = try await getMarketData()
                 if coins.isEmpty == false {
-                    print(coins[0])
+                    print(coins[0].name)
                 }
             } catch let error {
                 print("Error: \((error))")
             }
+        }
+    }
+    
+    private func handleHTTPResponses (_ httpResponse: HTTPURLResponse, data: Data) throws -> [MarketData] {
+        switch httpResponse.statusCode {
+        case 200:
+            return try JSONDecoder().decode([MarketData].self, from: data)
+        case 429:
+            alertContentString = "Request Limit Reached"
+        case 401:
+            alertContentString = "API key invalid"
+        case 402:
+            alertContentString = "Payment required for the API"
+        case 403:
+            alertContentString = "Unauthorized request"
+        case 404:
+            alertContentString = "Not found"
+        default:
+            alertContentString = "Error: code \(httpResponse.statusCode)"
+        }
+        showAPIAlert = true
+        return []
+    }
+
+    private func errorHandler (_ error: Error) {
+        if let urlError = error as? URLError {
+            switch urlError.code {
+            case .notConnectedToInternet:
+                alertContentString = "No network connection"
+            case .timedOut:
+                alertContentString = "Request timed out"
+            default:
+                alertContentString = "URL Error: \(urlError)"
+            }
+        } else {
+            alertContentString = "Error: \(error.localizedDescription)"
         }
     }
 }
