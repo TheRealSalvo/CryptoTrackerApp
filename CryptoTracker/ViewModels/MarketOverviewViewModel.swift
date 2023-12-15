@@ -10,6 +10,8 @@ import Foundation
 class MarketOverviewViewModel: ObservableObject {
     
     @Published var coins = [MarketData]()
+    @Published var showAPIAlert = false
+    @Published var alertContent: Int = 0
     
     var currency: Currency = .dollars
 
@@ -41,19 +43,30 @@ class MarketOverviewViewModel: ObservableObject {
         if let httpResponse = response as? HTTPURLResponse{
             if httpResponse.statusCode == 200{
                 print("OK!")
+                
+//                //Testing if the pop up gets created
+//                alertContent = httpResponse.statusCode
+//                showAPIAlert = true
+//                print("created pop up alert")
+
             }
             if httpResponse.statusCode == 429{
                 print("Request Limit Reached!")
+                
                 print(response)
                 if let retryAfterValue = httpResponse.value(forHTTPHeaderField: "retry-after") as Any?{
                     print("retry after \(retryAfterValue) seconds")
                 }
                 return []
             }
+            if httpResponse.statusCode != 200 {
+                alertContent = httpResponse.statusCode
+                showAPIAlert = true
+                print("Should have showed a pop up alert!")
+            }
         }
         
         let marketData = try JSONDecoder().decode([MarketData].self, from: data)
-        //self.isReady = true
         return marketData
     }
     
@@ -65,7 +78,7 @@ class MarketOverviewViewModel: ObservableObject {
         Task { @MainActor in
             do {
                 coins = try await getMarketData()
-                print(coins![0])
+                print(coins[0])
             } catch let error {
                 print("Error: \((error))")
             }
