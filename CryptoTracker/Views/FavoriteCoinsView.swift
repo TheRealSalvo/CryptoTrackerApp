@@ -29,7 +29,12 @@ struct FavoriteCoinsView: View {
                         
                         CardView(card: Card(coin: data!))
                             .contextMenu(menuItems: {
-                                Text("Remove from Favourites")
+                                Button(action: {
+                                    removeFromFavourite(coin: coin)
+                                }, label: {
+                                    Text("Remove from Favourites")
+                                })
+                                
                             })
                     }
                 }
@@ -52,6 +57,10 @@ struct FavoriteCoinsView: View {
                 }
             }
         }.searchable(text: $searchText)
+    }
+    
+    func removeFromFavourite(coin: FavoriteCoin){
+        modelContext.delete(coin)
     }
 }
 
