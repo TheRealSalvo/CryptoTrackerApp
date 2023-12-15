@@ -16,8 +16,6 @@ struct AllCoinsListView: View {
     
     @State private var searchText = ""
     
-    @State var query : [AnyObject]
-    
     var function: (String)->Void
     
     var list: some View{
@@ -52,7 +50,6 @@ struct AllCoinsListView: View {
         NavigationStack {
             list
             .navigationTitle("All Coins")
-           
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -72,5 +69,5 @@ struct AllCoinsListView: View {
 }
 
 #Preview {
-    AllCoinsListView(viewModel: MarketOverviewViewModel(), query: [], function: {_ in print("test")})
+    AllCoinsListView(viewModel: MarketOverviewViewModel(), function: {_ in print("test")})
 }
