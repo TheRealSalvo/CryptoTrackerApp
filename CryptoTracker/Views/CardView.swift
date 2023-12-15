@@ -46,8 +46,6 @@ struct CardView: View {
                             Spacer()
                             
                             ChartView(of: card.sparkline)
-                                .chartXAxis(.hidden)
-                                .chartYAxis(.hidden)
                                .frame(maxWidth: 100)
                         }
                         
