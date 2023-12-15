@@ -207,7 +207,6 @@
 				5459DDD42B285EF500B29C4E /* FavoriteCoin.swift in Sources */,
 				DA9A1B3C2B2720D600AE5B94 /* MarketData.swift in Sources */,
 				5459DDCE2B27560F00B29C4E /* ChartView.swift in Sources */,
-
 				5402F1662B2AC920002BC818 /* SplashScreenView.swift in Sources */,
 				6566754B2B29C5FA00DCD8FE /* CardViewModel.swift in Sources */,
 				6566754F2B29C66C00DCD8FE /* CardView.swift in Sources */,
@@ -345,7 +344,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CryptoTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = M3C2V4Z3BV;
+				DEVELOPMENT_TEAM = NNZWWH5M7V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoTracker/Info.plist;
@@ -359,7 +358,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "paulyates-CryptoTracker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ShoxMamadaliev.Fedora.Wallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -375,7 +374,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CryptoTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = M3C2V4Z3BV;
+				DEVELOPMENT_TEAM = NNZWWH5M7V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoTracker/Info.plist;
@@ -389,7 +388,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "paulyates-CryptoTracker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ShoxMamadaliev.Fedora.Wallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
