@@ -16,6 +16,10 @@ struct AllCoinsListView: View {
     
     @State private var searchText = ""
     
+    @State var query : [AnyObject]
+    
+    var function: (String)->Void
+    
     var list: some View{
         List(viewModel.coins) { coin in
             HStack(alignment: .center, content: {
@@ -36,7 +40,7 @@ struct AllCoinsListView: View {
                     ChartView(of: coin.sparkline!.price)
                 }
                 Button(action: {
-                    addToFavorites(coin: coin.name)
+                    function(coin.name)
                 }, label: {
                     Image(systemName: "plus")
                 })
@@ -65,28 +69,8 @@ struct AllCoinsListView: View {
         }
         .searchable(text: $searchText)
     }
-    
-    func addToFavorites (coin: String){
-        let favorite = FavoriteCoin(name: coin)
-        modelContext.insert(favorite)
-    }
-    
-    /* TODO: call this is parent view is WatchlistCoins*/
-    func addToWatchlist (coin: String){
-        let favorite = WatchlistCoin(name: coin)
-        modelContext.insert(favorite)
-        //to debug that we are putting items in to the list correctly
-
-        print("Current watchlist is")
-        let fetchDescriptor2 = FetchDescriptor<WatchlistCoin>()
-        let watchlist = try! modelContext.fetch(fetchDescriptor2)
-        for coin in watchlist {
-            print(coin.name)
-        }
-
-    }
 }
 
 #Preview {
-    AllCoinsListView(viewModel: MarketOverviewViewModel())
+    AllCoinsListView(viewModel: MarketOverviewViewModel(), query: [], function: {_ in print("test")})
 }
