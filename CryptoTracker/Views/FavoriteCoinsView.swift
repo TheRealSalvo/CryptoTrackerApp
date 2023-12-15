@@ -12,7 +12,6 @@ struct FavoriteCoinsView: View {
     @Environment(\.modelContext) var modelContext
     @ObservedObject var viewModel: MarketOverviewViewModel
     
-    //@Query(sort: \FavoriteCoin.id, order: .reverse)
     @Query private var favouriteCoins: [FavoriteCoin] = []
     
     @State private var showSheet = false
@@ -30,9 +29,7 @@ struct FavoriteCoinsView: View {
                         
                         CardView(card: Card(coin: data!))
                             .contextMenu(menuItems: {
-                                Text("Menu Item 1")
-                                Text("Menu Item 2")
-                                Text("Menu Item 3")
+                                Text("Remove from Favourites")
                             })
                     }
                 }
@@ -55,17 +52,6 @@ struct FavoriteCoinsView: View {
                 }
             }
         }.searchable(text: $searchText)
-    }
-    
-    func loadFavourites(){
-        //to debug that we are putting items in to the list correctly
-        print("Current watchlist is")
-        let fetchDescriptor = FetchDescriptor<FavoriteCoin>()
-        let favorites = try! modelContext.fetch(fetchDescriptor)
-        for coin in favorites {
-            print(coin.name)
-        }
-
     }
 }
 
