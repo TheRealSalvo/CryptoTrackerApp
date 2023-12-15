@@ -11,14 +11,14 @@ class MarketOverviewViewModel: ObservableObject {
     
     @Published var coins = [MarketData]()
     @Published var showAPIAlert = false
-    @Published var alertContent: Int = 0
+    @Published var alertContentString: String = ""
     
     var currency: Currency = .dollars
-
+    
     let decoder = JSONDecoder()
     
     var components = URLComponents(string: "https://api.coingecko.com")
-
+    
     func getMarketData() async throws -> [MarketData] {
         guard var components = self.components else{
             throw URLError(.badURL)
@@ -37,48 +37,63 @@ class MarketOverviewViewModel: ObservableObject {
         guard let url = components.url else{
             throw URLError(.badURL)
         }
-        
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        if let httpResponse = response as? HTTPURLResponse{
-            if httpResponse.statusCode == 200{
-                print("OK!")
-                
-//                //Testing if the pop up gets created
-//                alertContent = httpResponse.statusCode
-//                showAPIAlert = true
-//                print("created pop up alert")
-
-            }
-            if httpResponse.statusCode == 429{
-                print("Request Limit Reached!")
-                
-                print(response)
-                if let retryAfterValue = httpResponse.value(forHTTPHeaderField: "retry-after") as Any?{
-                    print("retry after \(retryAfterValue) seconds")
-                }
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                alertContentString = "Received non-HTTP response"
+                showAPIAlert = true
                 return []
             }
-            if httpResponse.statusCode != 200 {
-                alertContent = httpResponse.statusCode
-                showAPIAlert = true
-                print("Should have showed a pop up alert!")
+            
+            switch httpResponse.statusCode {
+            case 200:
+                return try JSONDecoder().decode([MarketData].self, from: data)
+            case 429:
+                alertContentString = "Request Limit Reached"
+            case 401:
+                alertContentString = "API key invalid"
+            case 402:
+                alertContentString = "Payment required for the API"
+            case 403:
+                alertContentString = "Unauthorized request"
+            case 404:
+                alertContentString = "Not found"
+            default:
+                alertContentString = "Error: code \(httpResponse.statusCode)"
             }
         }
-        
-        let marketData = try JSONDecoder().decode([MarketData].self, from: data)
-        return marketData
+        catch {
+            if let urlError = error as? URLError {
+                switch urlError.code {
+                case .notConnectedToInternet:
+                    alertContentString = "No network connection"
+                case .timedOut:
+                    alertContentString = "Request timed out"
+                default:
+                    alertContentString = "URL Error: \(urlError)"
+                }
+            } else {
+                alertContentString = "Error: \(error.localizedDescription)"
+            }
+        }
+        showAPIAlert = true
+        return []
     }
+    
+    
     
     init() {
         updateCoins()
     }
-
+    
     func updateCoins() {
         Task { @MainActor in
             do {
                 coins = try await getMarketData()
-                print(coins[0])
+                if coins.isEmpty == false {
+                    print(coins[0])
+                }
             } catch let error {
                 print("Error: \((error))")
             }

@@ -19,7 +19,7 @@ struct FavoriteCoinsView: View {
     @State private var searchText = ""
     
     //CHECK IF I USEED / NEEDED THIS
-    let alertTitle: String = "Error"
+    let alertTitle: String = "Api error"
     
     var body: some View {
         NavigationStack {
@@ -67,7 +67,7 @@ struct FavoriteCoinsView: View {
             isPresented: $viewModel.showAPIAlert) {
                     Button("OK", role: .cancel) { }
                     } message: {
-                        Text("Error \(String(describing: viewModel.alertContent)) when updating data")
+                        Text("Error \(String(describing: viewModel.alertContentString))")
                         }
     }
     
