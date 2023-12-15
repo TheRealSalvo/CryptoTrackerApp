@@ -31,7 +31,12 @@ struct SplashScreenView: View {
                     }.padding(.top)
                 }
             } else {
-                FavoriteCoinsView(viewModel: marketVM)
+                TabView{
+                    FavoriteCoinsView(viewModel: marketVM)
+                        .tabItem { Text("Favorites") }
+                    WatchlistCoinsView(viewModel: marketVM)
+                        .tabItem { Text("Watchlist") }
+                }
             }
         }
     }
