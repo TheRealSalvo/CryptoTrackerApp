@@ -14,11 +14,15 @@ struct CardView: View {
             
             VStack(alignment: .leading){
                 HStack {
-                    card.imageSymbol
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50)
-                        .frame(height: 50)
+                    AsyncImage(url: URL(string: card.imageURL)){ image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                        
                     Text(card.name)
                         .font(.title)
                         .bold()
@@ -73,6 +77,6 @@ struct CardView: View {
 
 
 #Preview {
-    let card = Card(name: "BTC", value:23.45 , imageSymbol: Image("bitcoin"), marketCap: 43.75, volume: 31.60, priceChangePercentage24h: 0.56)
+    let card = Card(name: "BTC", value:23.45 , imageSymbol: "bitcoin", marketCap: 43.75, volume: 31.60, priceChangePercentage24h: 0.56)
     return CardView(card: card)
 }
