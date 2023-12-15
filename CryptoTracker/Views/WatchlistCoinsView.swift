@@ -53,7 +53,7 @@ struct WatchlistCoinsView: View {
                            
                     }
                     .sheet(isPresented: $showSheet) {
-                        AllCoinsListView(viewModel: self.viewModel, query: watchlistCoins, function: addToWatchlist)
+                        AllCoinsListView(viewModel: self.viewModel, function: addToWatchlist)
                     }
                 }
             }

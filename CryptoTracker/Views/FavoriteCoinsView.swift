@@ -52,7 +52,7 @@ struct FavoriteCoinsView: View {
                            
                     }
                     .sheet(isPresented: $showSheet) {
-                        AllCoinsListView(viewModel: self.viewModel, query: favouriteCoins, function: addToFavorites)
+                        AllCoinsListView(viewModel: self.viewModel, function: addToFavorites)
                     }
                 }
             }
