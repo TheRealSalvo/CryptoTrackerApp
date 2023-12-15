@@ -1,30 +1,30 @@
+//
+//  WatchlistCoinsView.swift
+//  CryptoTracker
+//
+//  Created by Salvatore Attanasio on 15/12/23.
+//
 
-//  ContentView.swift
-//  Crypto App
-//
-//  Created by Salvatore Capasso on 11/12/23.
-//
+import SwiftUI
 
 import SwiftUI
 import SwiftData
 
-struct FavoriteCoinsView: View {
+struct WatchlistCoinsView: View {
     @Environment(\.modelContext) var modelContext
     @ObservedObject var viewModel: MarketOverviewViewModel
     
-    @Query private var favouriteCoins: [FavoriteCoin] = []
+    @Query private var watchlistCoins: [WatchlistCoin] = []
     
     @State private var showSheet = false
     @State private var searchText = ""
-    
-    let alertTitle: String = "Api error"
     
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 
                 LazyVGrid(columns: [GridItem(.fixed(360))], spacing: 7) {
-                    ForEach(favouriteCoins) { coin in
+                    ForEach(watchlistCoins) { coin in
                         let data = viewModel.coins.first { viewModelData in
                             viewModelData.name == coin.name
                         }
@@ -32,18 +32,17 @@ struct FavoriteCoinsView: View {
                         CardView(card: Card(coin: data!))
                             .contextMenu(menuItems: {
                                 Button(action: {
-                                    removeFromFavourite(coin: coin)
+                                    removeFromWatchlist(coin: coin)
                                 }, label: {
-                                    Text("Remove from Favourites")
+                                    Text("Remove from Watchlist")
                                 })
-                                
                             })
                     }
                 }
             }
             .scrollClipDisabled()
             .padding()
-            .navigationTitle("Favourite Coins")
+            .navigationTitle("Watchlist")
            
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -53,39 +52,27 @@ struct FavoriteCoinsView: View {
                         Image(systemName:"plus.circle")
                            
                     }
-                    .accessibilityLabel("Add coin to favourites")
                     .sheet(isPresented: $showSheet) {
-                        AllCoinsListView(viewModel: self.viewModel, function: addToFavorites)
+                        AllCoinsListView(viewModel: self.viewModel, function: addToWatchlist)
                     }
                 }
             }
-        }
-        .searchable(text: $searchText)
-        .refreshable {
-                viewModel.updateCoins()
-            }
-        .alert(
-            "Error",
-            isPresented: $viewModel.showAPIAlert) {
-                    Button("OK", role: .cancel) { }
-                    } message: {
-                        Text("Error \(String(describing: viewModel.alertContentString))")
-                        }
-    }
-
-    func addToFavorites (coin: String){
-        let newFavoriteCoin = FavoriteCoin(name: coin)
-        modelContext.insert(newFavoriteCoin)
+        }.searchable(text: $searchText)
     }
     
-    func removeFromFavourite(coin: FavoriteCoin){
+    func addToWatchlist(coin: String){
+        let newWatchedCoin = WatchlistCoin(name: coin)
+        modelContext.insert(newWatchedCoin)
+    }
+    
+    func removeFromWatchlist(coin: WatchlistCoin){
         modelContext.delete(coin)
     }
 }
 
+
 #Preview {
-    FavoriteCoinsView(
+    WatchlistCoinsView(
         viewModel: MarketOverviewViewModel()
     )
 }
-
