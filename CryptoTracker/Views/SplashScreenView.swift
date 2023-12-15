@@ -34,6 +34,13 @@ struct SplashScreenView: View {
                 FavoriteCoinsView(viewModel: marketVM)
             }
         }
+        .alert(
+            "Error",
+            isPresented: $marketVM.showAPIAlert) {
+                    Button("OK", role: .cancel) { }
+                    } message: {
+                        Text("Error \(String(describing: marketVM.alertContentString))")
+                        }
     }
 }
 
