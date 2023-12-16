@@ -20,13 +20,15 @@ struct SplashScreenView: View {
                         .frame(maxWidth: 200)
                         .padding(.bottom, 40)
                     Text("Powered by")
-                    Image("CoinGeckoLogoWithDarkText")
+                        .font(.headline)
+                    Image("CoinGeckoLogoWithWhiteText")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 200)
+                    
                     HStack{
                         Text("Fetching data from server...")
-                            .font(.title3)
+                            .font(.custom("orange", fixedSize: 10))
                         ProgressView()
                     }.padding(.top)
                 }
