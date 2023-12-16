@@ -28,16 +28,19 @@ struct FavoriteCoinsView: View {
                         let data = viewModel.coins.first { viewModelData in
                             viewModelData.name == coin.name
                         }
-                        
-                        CardView(card: Card(coin: data!))
-                            .contextMenu(menuItems: {
-                                Button(action: {
-                                    removeFromFavourite(coin: coin)
-                                }, label: {
-                                    Text("Remove from Favourites")
+                        NavigationLink{
+                            DetailView(detailModel: data!)
+                        } label: {
+                            CardView(card: Card(coin: data!))
+                                .contextMenu(menuItems: {
+                                    Button(action: {
+                                        removeFromFavourite(coin: coin)
+                                    }, label: {
+                                        Text("Remove from Favourites")
+                                    })
+                                    
                                 })
-                                
-                            })
+                        }
                     }
                 }
             }
