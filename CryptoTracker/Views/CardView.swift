@@ -36,7 +36,11 @@ struct CardView: View {
                                 Text(formatMarketCap(card.marketCap))
                                 Text(formatVolume(card.volume))
                             }
-                            .foregroundStyle(Color.gray)
+                            //.foregroundStyle(Color.gray)
+                            // swapped this to secondary so that it adapts to dark and high contrast modes
+                            .foregroundStyle(Color.secondary)
+                            //added a font size
+                            .font(.caption)
                             .bold()
                             Spacer()
                             
@@ -60,7 +64,8 @@ struct CardView: View {
             }
             .frame(maxHeight: 150)
             .padding()
-            .background(.banana)
+        //    .background(.banana)
+            .background(Color(UIColor.systemGray2))
             .cornerRadius(20)
             .padding()
             .accessibilityElement()
