@@ -20,7 +20,7 @@ struct SplashScreenView: View {
                         .frame(maxWidth: 200)
                         .padding(.bottom, 40)
                     Text("Powered by")
-                    Image("CoinGeckoLogoWithDarkText")
+                    Image("CoinGeckoLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 200)
