@@ -10,10 +10,18 @@ struct AllCoinsListView: View {
     @State private var searchText = ""
     @State private var addedCoins: Set<String> = [] // Track added coins
     
+    private var filteredCoins: [MarketData] {
+        if searchText.isEmpty {
+            return viewModel.coins
+        } else {
+            return viewModel.coins.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
+    }
+    
     var function: (String)->Void
     
     var list: some View {
-        List(viewModel.coins) { coin in
+        List(filteredCoins) { coin in
             HStack(alignment: .center) {
                 AsyncImage(url: URL(string: coin.image)) { image in
                     image
