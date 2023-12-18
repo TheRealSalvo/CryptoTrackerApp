@@ -9,7 +9,7 @@ import Foundation
 
 class APICallsManager{
     enum APIError: Error {
-        case badRequest(String)         // 400
+        case badRequest(String) // 400
         case unauthorised       // 401
         case forbidden          // 403
         case notFound           // 404
