@@ -20,8 +20,7 @@ struct SplashScreenView: View {
                         .frame(maxWidth: 200)
                         .padding(.bottom, 40)
                     Text("Powered by")
-                        .font(.headline)
-                    Image("CoinGeckoLogoWithWhiteText")
+                    Image("CoinGeckoLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 200)
@@ -35,9 +34,19 @@ struct SplashScreenView: View {
             } else {
                 TabView{
                     FavoriteCoinsView(viewModel: marketVM)
-                        .tabItem { Text("Favorites") }
+                        .tabItem { 
+                            HStack{
+                                Image(systemName: "star.fill")
+                                Text("Favorites")
+                                }
+                            }
                     WatchlistCoinsView(viewModel: marketVM)
-                        .tabItem { Text("Watchlist") }
+                        .tabItem { 
+                            HStack{
+                                Image(systemName: "list.bullet.rectangle.portrait.fill")
+                                Text("Watchlist")
+                            }
+                        }
                 }
             }
         }

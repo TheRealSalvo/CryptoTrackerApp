@@ -116,15 +116,12 @@ struct DetailView: View {
             }
             
             .toolbar(content: {
-                
                 ToolbarItem(placement:.navigationBarTrailing)
                 {
-                    
                     Image(systemName: "star.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
-                    
-                        .foregroundColor(.black)
+                      //  .foregroundColor(.black)
                   
                 }
             })
