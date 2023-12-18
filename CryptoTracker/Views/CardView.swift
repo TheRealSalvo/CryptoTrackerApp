@@ -43,7 +43,7 @@ struct CardView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 CustomText(card.marketCap, textType: .marketCap)
-                                CustomText(card.volume, textType: .marketCap)
+                                CustomText(card.volume, textType: .volume)
                             }
                             .foregroundStyle(Color.secondary)
                             .font(.caption)
@@ -75,7 +75,7 @@ struct CardView: View {
             .padding()
             .accessibilityElement()
             .accessibilityLabel("Coin information")
-            .accessibilityValue(String("\(card.name), price \(card.value), 24 hour price change \(card.priceChangePercentage24h). Market cap \(card.marketCap), 24 hour volume \(card.volume)."))
+            .accessibilityValue(String("\(card.name), price \(card.value), 24 hour price change \(card.priceChangePercentage24h). Market cap \(card.marketCap), total volume \(card.volume)."))
         //add currency to voiceover
         }
 }
