@@ -51,24 +51,38 @@ struct FavoriteCoinsView: View {
                                     })
                             }
                         }
+
+                        NavigationLink{
+                            DetailView(detailModel: data!)
+                        } label: {
+                            CardView(card: Card(coin: data!))
+                                .contextMenu(menuItems: {
+                                    Button(action: {
+                                        removeFromFavourite(coin: coin)
+                                    }, label: {
+                                        Text("Remove from Favourites")
+                                    })
+                                    
+                                })
+                        }
                     }
                 }
-            
-            
-            
-                .scrollClipDisabled()
-                .padding()
-                .navigationTitle("Favourite Coins")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            showSheet.toggle()
-                        } label: {
-                            Image(systemName:"plus.circle")
-                        }
-                        .sheet(isPresented: $showSheet) {
-                            AllCoinsListView(viewModel: self.viewModel, function: addToFavorites)
-                        }
+            }
+            .scrollClipDisabled()
+            .padding()
+            .navigationTitle("Favourite Coins")
+           
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showSheet.toggle()
+                    } label: {
+                        Image(systemName:"plus.circle")
+                           
+                    }
+                    .accessibilityLabel("Add coin to favourites")
+                    .sheet(isPresented: $showSheet) {
+                        AllCoinsListView(viewModel: self.viewModel, function: addToFavorites)
                     }
             }
                 
@@ -86,8 +100,8 @@ struct FavoriteCoinsView: View {
                 Text("Error \(String(describing: viewModel.alertContentString))")
             }
     }
-    
-    func addToFavorites(coin: String) {
+
+    func addToFavorites (coin: String){
         let newFavoriteCoin = FavoriteCoin(name: coin)
         modelContext.insert(newFavoriteCoin)
     }
@@ -97,9 +111,9 @@ struct FavoriteCoinsView: View {
     }
 }
 
-// Preview
-struct FavoriteCoinsView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavoriteCoinsView(viewModel: MarketOverviewViewModel())
-    }
+
+#Preview {
+    FavoriteCoinsView(
+        viewModel: MarketOverviewViewModel()
+    )
 }
