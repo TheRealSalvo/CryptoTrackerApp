@@ -7,16 +7,18 @@
 
 import Foundation
 
-class MarketOverviewViewModel: ObservableObject {
+@Observable
+class MarketOverviewViewModel {
     
-    @Published var coins = [MarketData]()
-    @Published var showAPIAlert = false
-    @Published var alertContentString: String = ""
+    var coins = [MarketData]()
+    var showAPIAlert = false
+    var alertContentString: String = ""
     
+    @ObservationIgnored
     var currency: Currency = .dollars
-    
+    @ObservationIgnored
     let decoder = JSONDecoder()
-    
+    @ObservationIgnored
     var components = URLComponents(string: "https://api.coingecko.com")
     
     func getMarketData() async throws -> [MarketData] {

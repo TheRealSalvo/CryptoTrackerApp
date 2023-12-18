@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct SplashScreenView: View {
-    @ObservedObject var marketVM: MarketOverviewViewModel
+    
+    @Bindable
+    var marketVM: MarketOverviewViewModel
     
     var body: some View {
         ZStack{
@@ -34,13 +36,13 @@ struct SplashScreenView: View {
             } else {
                 TabView{
                     FavoriteCoinsView(viewModel: marketVM)
-                        .tabItem { 
+                        .tabItem {
                             HStack{
                                 Image(systemName: "star.fill")
                                 Text("Favorites")
                                 }
                             }
-                    WatchlistCoinsView(viewModel: marketVM)
+                    WatchlistCoinsView()
                         .tabItem { 
                             HStack{
                                 Image(systemName: "list.bullet.rectangle.portrait.fill")

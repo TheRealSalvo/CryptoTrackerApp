@@ -10,7 +10,9 @@ import SwiftData
 
 struct FavoriteCoinsView: View {
     @Environment(\.modelContext) var modelContext
-    @ObservedObject var viewModel: MarketOverviewViewModel
+    
+    @Bindable
+    var viewModel: MarketOverviewViewModel
     
     @Query private var favouriteCoins: [FavoriteCoin] = []
     
@@ -20,69 +22,60 @@ struct FavoriteCoinsView: View {
     let alertTitle: String = "Api error"
     
     // Computed property to filter favorite coins based on search text
-    private var filteredCoins: [FavoriteCoin] {
-        if searchText.isEmpty {
-            return favouriteCoins
+    private var filteredCoins: [MergeData] {
+        let coins = if searchText.isEmpty {
+            favouriteCoins
         } else {
-            return favouriteCoins.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            favouriteCoins.filter { $0.name.lowercased().contains(searchText.lowercased())
+            }
         }
+        return coins.filter { data in
+            viewModel.coins.contains { coin in coin.name == data.name }
+        }.map { coin in MergeData(coin,viewModel.coins.first { $0.name == coin.name }!) }
     }
-
+    
     var body: some View {
-        
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
-                
-                LazyVStack {
-                    // Use the filtered list here
-                    ForEach(filteredCoins) { coin in
-                        let data = viewModel.coins.first { viewModelData in
-                            viewModelData.name == coin.name
-                        }
-                        
-                        if let data = data {
-                            NavigationLink{
-                                DetailView(detailModel: data)
-                            } label: {
-                                CardView(card: Card(coin: data))
-                                    .contextMenu(menuItems: {
-                                        Button(action: {
-                                            removeFromFavourite(coin: coin)
-                                        }, label: {
-                                            Text("Remove from Favourites")
-                                        })
-                                        
-                                    })
-                            }
-                        }
+                // Use the filtered list here
+                ForEach(filteredCoins) { merge in
+                    NavigationLink{
+                        DetailView(detailModel: merge.data)
+                    } label: {
+                        CardView(card: Card(coin: merge.data))
+                            .contextMenu(menuItems: {
+                                Button(action: {
+                                    removeFromFavourite(coin: merge.coin)
+                                }, label: {
+                                    Text("Remove from Favourites")
+                                })
+                                
+                            })
                     }
                 }
             }
-        
-        .scrollClipDisabled()
-        .padding()
-        .navigationTitle("Favourite Coins")
-        
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showSheet.toggle()
-                } label: {
-                    Image(systemName:"plus.circle")
-                    
+            .scrollClipDisabled()
+            .padding()
+            .navigationTitle("Favourite Coins")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showSheet.toggle()
+                    } label: {
+                        Image(systemName:"plus.circle")
+                        
+                    }
+                    .accessibilityLabel("Add coin to favourites")
+                    .sheet(isPresented: $showSheet) {
+                        AllCoinsListView(function: addToFavorites)
+                    }
                 }
-                .accessibilityLabel("Add coin to favourites")
-                .sheet(isPresented: $showSheet) {
-                    AllCoinsListView(viewModel: self.viewModel, function: addToFavorites)
-                }
+                
             }
-            
-        }
-    }
-        .searchable(text: $searchText)
-        .refreshable {
-            viewModel.updateCoins()
-        
+            .searchable(text: $searchText)
+            .refreshable {
+                viewModel.updateCoins()
+            }
         }
         .alert(
             "Error",
@@ -92,7 +85,7 @@ struct FavoriteCoinsView: View {
                 Text("Error \(String(describing: viewModel.alertContentString))")
             }
     }
-
+    
     func addToFavorites (coin: String){
         let newFavoriteCoin = FavoriteCoin(name: coin)
         modelContext.insert(newFavoriteCoin)
