@@ -15,6 +15,7 @@ struct CardView: View {
                     } placeholder: {
                         ProgressView()
                     }
+                    .clipShape(Circle())
                         
                     Text(card.name)
                         .font(.title)

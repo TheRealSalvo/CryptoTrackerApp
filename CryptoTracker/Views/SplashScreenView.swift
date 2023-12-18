@@ -24,9 +24,10 @@ struct SplashScreenView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 200)
+                    
                     HStack{
                         Text("Fetching data from server...")
-                            .font(.title3)
+                            .font(.custom("orange", fixedSize: 10))
                         ProgressView()
                     }.padding(.top)
                 }
