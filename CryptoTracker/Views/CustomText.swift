@@ -23,12 +23,14 @@ struct CustomText: View {
     
     private var labelText : String{
         switch (self.textType) {
+            case .currency:
+                return formatCurrency(self.value)
             case .marketCap:
-            return formatMarketCap(self.value)
+                return formatMarketCap(self.value)
             case .volume:
-            return formatVolume(self.value)
+                return formatVolume(self.value)
             case .priceChangePercentage:
-            return formatPriceChangePercentage(self.value)
+                return formatPriceChangePercentage(self.value)
             default:
                 return text
         }
@@ -49,13 +51,23 @@ struct CustomText: View {
         Text(self.labelText)
     }
     
+    private func formatCurrency(_ value: Double) -> String {
+        if(value > 1000){
+            return String(format: "$%.02f$")
+        }else if (value > 0){
+            return String(format: "$%.04f$")
+        }else{
+            return String(format: "$%.06f$")
+        }
+    }
+    
     private func formatMarketCap(_ marketCap: Double) -> String {
         if marketCap >= 1_000_000_000 {
             return String(format: "MarketCap: $%.01fB", marketCap / 1_000_000_000)
         } else if marketCap >= 1_000_000 {
             return String(format: "MarketCap: $%.01fM", marketCap / 1_000_000)
         } else {
-            return "MarketCap: N/A"
+            return String(marketCap)
         }
     }
     
@@ -65,7 +77,7 @@ struct CustomText: View {
         } else if volume >= 1_000_000 {
             return String(format: "Volume: $%.01fM", volume / 1_000_000)
         } else {
-            return "Volume 24h: N/A"
+            return String(volume)
         }
     }
     
