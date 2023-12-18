@@ -17,7 +17,6 @@ struct AllCoinsListView: View {
             HStack(alignment: .center) {
                 AsyncImage(url: URL(string: coin.image)) { image in
                     image
-                    
                         .resizable()
                         .scaledToFit()
                 }
@@ -28,7 +27,9 @@ struct AllCoinsListView: View {
             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                 
                 VStack(alignment: .leading) {
-                    Text(coin.name)
+                    Text(coin.symbol)
+                        .font(.title)
+                        .bold()
                     Text(String(coin.currentPrice))
                 }
                 
