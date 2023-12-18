@@ -24,12 +24,12 @@ struct CardView: View {
                     Spacer()
                     
                     if card.priceChangePercentage24h < 0.0 {
-                        Text(formatPriceChange(card.priceChangePercentage24h))
+                        CustomText(card.priceChangePercentage24h, textType: .priceChangePercentage)
                             .foregroundStyle(Color.red)
                         Image(systemName: "triangle.fill").rotationEffect(.degrees(180))
                             .foregroundStyle(Color.red)
                     } else {
-                        Text(formatPriceChange(card.priceChangePercentage24h))
+                        CustomText(card.priceChangePercentage24h, textType: .priceChangePercentage)
                             .foregroundStyle(Color.green)
                         Image(systemName: "triangle.fill")
                             .foregroundStyle(Color.green)
@@ -42,13 +42,10 @@ struct CardView: View {
                     VStack(alignment:.leading) {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text(formatMarketCap(card.marketCap))
-                                Text(formatVolume(card.volume))
+                                CustomText(card.marketCap, textType: .marketCap)
+                                CustomText(card.volume, textType: .marketCap)
                             }
-                            //.foregroundStyle(Color.gray)
-                            // swapped this to secondary so that it adapts to dark and high contrast modes
                             .foregroundStyle(Color.secondary)
-                            //added a font size
                             .font(.caption)
                             .bold()
                             Spacer()
@@ -73,7 +70,6 @@ struct CardView: View {
             }
             .frame(maxHeight: 150)
             .padding()
-        //    .background(.banana)
             .background(Color(UIColor.systemGray2))
             .cornerRadius(20)
             .padding()
@@ -82,30 +78,6 @@ struct CardView: View {
             .accessibilityValue(String("\(card.name), price \(card.value), 24 hour price change \(card.priceChangePercentage24h). Market cap \(card.marketCap), 24 hour volume \(card.volume)."))
         //add currency to voiceover
         }
-    
-    private func formatMarketCap(_ marketCap: Double) -> String {
-        if marketCap >= 1_000_000_000 {
-            return String(format: "MarketCap: $%.01fB", marketCap / 1_000_000_000)
-        } else if marketCap >= 1_000_000 {
-            return String(format: "MarketCap: $%.01fM", marketCap / 1_000_000)
-        } else {
-            return "MarketCap: N/A"
-        }
-    }
-    
-    private func formatVolume(_ volume: Double) -> String {
-        if volume >= 1_000_000_000 {
-            return String(format: "Volume 24h: $%.01fB", volume / 1_000_000_000)
-        } else if volume >= 1_000_000 {
-            return String(format: "Volume 24h: $%.01fM", volume / 1_000_000)
-        } else {
-            return "Volume 24h: N/A"
-        }
-    }
-    
-    private func formatPriceChange(_ priceChange: Double) -> String {
-        return String(format: "%.2f%%", priceChange)
-    }
 }
 
 #Preview {

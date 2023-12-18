@@ -41,7 +41,7 @@ struct AllCoinsListView: View {
                     Text(String(coin.currentPrice))
                 }
                 
-                Text("\(coin.priceChangePercentage24h)")
+                CustomText(coin.priceChangePercentage24h, textType: .priceChangePercentage)
                 
                 if coin.sparkline != nil {
                     ChartView(of: coin.sparkline!.price)
