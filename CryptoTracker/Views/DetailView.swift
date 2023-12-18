@@ -5,36 +5,41 @@ struct DetailView: View {
     let detailModel: MarketData
     
     var body: some View {
-        NavigationStack {
             ScrollView{
-                VStack(alignment:.leading, spacing: 4) {
-                    Text(detailModel.symbol)
-                        .foregroundColor(.gray)
-                    
+                VStack(alignment:.leading, spacing: 0) {
                     HStack {
-                        AsyncImage(url: URL(string: detailModel.image)){ image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 50, height: 50)
-                        } placeholder: {
-                            ProgressView()
+                        VStack{
+                            Text(detailModel.symbol)
+                                .foregroundColor(.gray)
+                            AsyncImage(url: URL(string: detailModel.image)){ image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 50, height: 50)
+                            } placeholder: {
+                                ProgressView()
+                            }
                         }
                         
                         Text(detailModel.name)
                             .font(.title)
                             .bold()
-                            .foregroundColor(.black)
+                            .foregroundColor(.gray)
+                            .padding(.leading)
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .trailing){
+                            Text(String(detailModel.currentPrice))
+                                .font(.title2)
+                                .bold()
+                            
+                            Text(String(detailModel.priceChangePercentage24h))
+                                .font(.title2)
+                                .foregroundColor(.red)
+                                .bold()
+                        }
                     }
-                    
-                    Text(String(detailModel.currentPrice))
-                        .font(.title2)
-                        .bold()
-                    
-                    Text(String(detailModel.priceChangePercentage24h))
-                        .font(.title2)
-                        .foregroundColor(.red)
-                        .bold()
                     
                     if(detailModel.sparkline != nil){
                         ChartView(of: detailModel.sparkline!.price, scaleFactor: 1.02)
@@ -44,76 +49,55 @@ struct DetailView: View {
                 .padding(.bottom,30)
                 
                 
-                Text(detailModel.name + " information")
+                Text(detailModel.name + " informations")
                     .font(.title2)
                     .bold()
                     .padding(.bottom,10)
-                HStack {
-                    
-                    Text("Ranking")
-                    
-                    Spacer()
-                    Text(String(detailModel.marketCapRank))
-                    
-                } .bold()
-                    .padding(.bottom,10)
                 
-                HStack {
-                    Text("ATH")
-                    
-                    Spacer()
-                    Text(String(detailModel.ath))
-                    
-                } .bold()
-                    .padding(.bottom,10)
-                HStack {
-                    Text("ATH Date ")
-                    
-                    Spacer()
-                    Text(String(detailModel.athDate))
-                    
-                } .bold()
-                    .padding(.bottom,10)
-                HStack {
-                    Text("Higher price (24h)")
-                    Spacer()
-                    Text(String(detailModel.high24h))
+                Grid(alignment: .topLeading){
+                    GridRow(alignment: .center){
+                        Text("Ranking")
+                        Spacer()
+                        Text(String(detailModel.marketCapRank))
+                    }
+                    Divider()
+                    GridRow{
+                        Text("ATH")
+                        Spacer()
+                        Text(String(detailModel.ath))
+                    }
+                    Divider()
+                    GridRow{
+                        Text("ATH Date ")
+                        Spacer()
+                        Text(String(detailModel.athDate))
+                    }
+                    Divider()
+                    GridRow{
+                        Text("Higher price (24h)")
+                        Spacer()
+                        Text(String(detailModel.high24h))
+                    }
+                    Divider()
+                    GridRow{
+                        Text("Lowest price (24h)")
+                        Spacer()
+                        Text(String(detailModel.low24h))
+                    }
+                    Divider()
+                    GridRow{
+                        Text("Circulating Supply")
+                        Spacer()
+                        Text(String(detailModel.circulatingSupply))
+                    }
+                    Divider()
+                    GridRow{
+                        Text("Last Updated")
+                        Spacer()
+                        Text(String(detailModel.lastUpdated))
+                    }
                 }
                 .bold()
-                .padding(.bottom,10)
-                HStack {
-                    Text("Lowest price (24h)")
-                    
-                    Spacer()
-                    Text(String(detailModel.low24h))
-                    
-                } .bold()
-                    .padding(.bottom,10)
-                HStack {
-                    Text("Market cap")
-                    
-                    Spacer()
-                    Text(String(detailModel.marketCap))
-                    
-                } .bold()
-                    .padding(.bottom,10)
-                HStack {
-                    
-                    Text("Circulatingsupply")
-                    
-                    Spacer()
-                    Text(String(detailModel.circulatingSupply))
-                    
-                } .bold()
-                    .padding(.bottom,10)
-                HStack {
-                    Text("Last Updated")
-                    
-                    Spacer()
-                    Text(String(detailModel.lastUpdated))
-                    
-                } .bold()
-                
             }
             
             .toolbar(content: {
@@ -127,8 +111,6 @@ struct DetailView: View {
                 }
             })
             Spacer()
-        }.padding()
-        
     }
 }
 
