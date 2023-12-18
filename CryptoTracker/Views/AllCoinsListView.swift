@@ -25,7 +25,6 @@ struct AllCoinsListView: View {
             HStack(alignment: .center) {
                 AsyncImage(url: URL(string: coin.image)) { image in
                     image
-                    
                         .resizable()
                         .scaledToFit()
                 }
@@ -36,11 +35,13 @@ struct AllCoinsListView: View {
             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                 
                 VStack(alignment: .leading) {
-                    Text(coin.name)
+                    Text(coin.symbol)
+                        .font(.title)
+                        .bold()
                     Text(String(coin.currentPrice))
                 }
                 
-                Text("\(coin.priceChangePercentage24h)")
+                CustomText(coin.priceChangePercentage24h, textType: .priceChangePercentage)
                 
                 if coin.sparkline != nil {
                     ChartView(of: coin.sparkline!.price)
@@ -59,6 +60,9 @@ struct AllCoinsListView: View {
                     Image(systemName: addedCoins.contains(coin.name) ? "minus.circle.fill" : "plus.circle.fill")
                 }
             }
+            .accessibilityElement()
+            .accessibilityLabel("Coin information")
+            .accessibilityValue(String("\(coin.name), price \(coin.currentPrice), 24 hour price change \(coin.priceChangePercentage24h). Market cap \(coin.marketCap), 24 hour volume \(coin.totalVolume)."))
         }
     }
     

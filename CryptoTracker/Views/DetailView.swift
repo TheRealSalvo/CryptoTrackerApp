@@ -34,9 +34,9 @@ struct DetailView: View {
                                 .font(.title2)
                                 .bold()
                             
-                            Text(String(detailModel.priceChangePercentage24h))
+                            CustomText(detailModel.priceChangePercentage24h, textType: .priceChangePercentage)
                                 .font(.title2)
-                                .foregroundColor(.red)
+                                .foregroundColor(detailModel.priceChangePercentage24h > 0 ? .green : .red)
                                 .bold()
                         }
                     }
