@@ -37,7 +37,8 @@ struct DetailView: View {
                         .bold()
                     
                     if(detailModel.sparkline != nil){
-                        ChartView(of: detailModel.sparkline!.price)
+                        ChartView(of: detailModel.sparkline!.price, scaleFactor: 1.02)
+                            .frame(height: 200)
                     }
                 }
                 .padding(.bottom,30)
