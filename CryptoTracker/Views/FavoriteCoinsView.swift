@@ -31,53 +31,54 @@ struct FavoriteCoinsView: View {
     var body: some View {
         
         NavigationStack {
-                ScrollView(.vertical, showsIndicators: false) {
-                    
-              LazyVStack {
-                        // Use the filtered list here
-                        ForEach(filteredCoins) { coin in
-                            let data = viewModel.coins.first { viewModelData in
-                                viewModelData.name == coin.name
-                            }
-                            
-                            if let data = data {
-                                NavigationLink{
-                                    DetailView(detailModel: data)
-                                } label: {
-                                    CardView(card: Card(coin: data))
-                                        .contextMenu(menuItems: {
-                                            Button(action: {
-                                                removeFromFavourite(coin: coin)
-                                            }, label: {
-                                                Text("Remove from Favourites")
-                                            })
-                                            
+            ScrollView(.vertical, showsIndicators: false) {
+                
+                LazyVStack {
+                    // Use the filtered list here
+                    ForEach(filteredCoins) { coin in
+                        let data = viewModel.coins.first { viewModelData in
+                            viewModelData.name == coin.name
+                        }
+                        
+                        if let data = data {
+                            NavigationLink{
+                                DetailView(detailModel: data)
+                            } label: {
+                                CardView(card: Card(coin: data))
+                                    .contextMenu(menuItems: {
+                                        Button(action: {
+                                            removeFromFavourite(coin: coin)
+                                        }, label: {
+                                            Text("Remove from Favourites")
                                         })
-                                }
+                                        
+                                    })
                             }
                         }
                     }
                 }
             }
-            .scrollClipDisabled()
-            .padding()
-            .navigationTitle("Favourite Coins")
-           
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showSheet.toggle()
-                    } label: {
-                        Image(systemName:"plus.circle")
-                           
-                    }
-                    .accessibilityLabel("Add coin to favourites")
-                    .sheet(isPresented: $showSheet) {
-                        AllCoinsListView(viewModel: self.viewModel, function: addToFavorites)
-                    }
+        
+        .scrollClipDisabled()
+        .padding()
+        .navigationTitle("Favourite Coins")
+        
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showSheet.toggle()
+                } label: {
+                    Image(systemName:"plus.circle")
+                    
+                }
+                .accessibilityLabel("Add coin to favourites")
+                .sheet(isPresented: $showSheet) {
+                    AllCoinsListView(viewModel: self.viewModel, function: addToFavorites)
+                }
             }
-                
+            
         }
+    }
         .searchable(text: $searchText)
         .refreshable {
             viewModel.updateCoins()
