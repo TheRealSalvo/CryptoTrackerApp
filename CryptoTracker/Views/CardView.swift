@@ -48,23 +48,18 @@ struct CardView: View {
                             .foregroundStyle(Color.secondary)
                             .font(.caption)
                             .bold()
-                            Spacer()
-                            
-                            if(card.sparkline.count > 0){
-                                ChartView(of: card.sparkline)
-                                    .frame(maxWidth: 100)
-                            }
                         }
                         
                         Spacer()
                         
-                        VStack(alignment: .leading) {
-                            Text("\(card.value)$")
-                                .foregroundStyle(Color.white)
-                                .font(.title)
-                        }
+                        CustomText(card.value, textType: .currency)
+                            .foregroundStyle(Color.white)
+                            .font(.title)
                     }
-                    Spacer()
+                    .padding(.trailing, 10)
+                    if(card.sparkline.count > 0){
+                        ChartView(of: card.sparkline)
+                    }
              
                 }
             }
