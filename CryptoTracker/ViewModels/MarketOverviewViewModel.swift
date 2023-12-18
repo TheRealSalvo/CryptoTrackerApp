@@ -8,104 +8,39 @@
 import Foundation
 
 class MarketOverviewViewModel: ObservableObject {
-    
     @Published var coins = [MarketData]()
-    @Published var showAPIAlert = false
-    @Published var alertContentString: String = ""
     
-    var currency: Currency = .dollars
+    private let decoder = JSONDecoder()
     
-    let decoder = JSONDecoder()
-    
-    var components = URLComponents(string: "https://api.coingecko.com")
-    
-    func getMarketData() async throws -> [MarketData] {
-        guard var components = self.components else{
-            throw URLError(.badURL)
-        }
+    @MainActor func getMarketData(vs_currency: Currency = .dollars) async throws {
+        let (data, _) = try await APICallsManager.shared.updateMarketData(vs_currency: vs_currency.rawValue)
         
-        components.path       = "/api/v3/coins/markets"
-        components.queryItems = [
-            URLQueryItem(name: "vs_currency", value: "usd"),
-            URLQueryItem(name: "order",     value: "market_cap_desc"),
-            URLQueryItem(name: "per_page",  value: "100"),
-            URLQueryItem(name: "page",      value: "1"),
-            URLQueryItem(name: "sparkline", value: "true"),
-            URLQueryItem(name: "x_cg_demo_api_key", value: Bundle.main.infoDictionary?["API_KEY"] as? String),
-        ]
+        // Where do I handle this?
+//            guard let httpResponse = response as? HTTPURLResponse else {
+//                alertContentString = "Received non-HTTP response"
+//                showAPIAlert = true
+//                return
+//            }
         
-        guard let url = components.url else{
-            throw URLError(.badURL)
-        }
-        do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                alertContentString = "Received non-HTTP response"
-                showAPIAlert = true
-                return []
-            }
-            
-            return try handleHTTPResponses(httpResponse, data: data)
-            
-        }
-        catch {
-            errorHandler(error)
-        }
-        showAPIAlert = true
-        return []
+        coins = try JSONDecoder().decode([MarketData].self, from: data)
     }
     
-    init() {
-        updateCoins()
-    }
-    
-    func updateCoins() {
-        Task { @MainActor in
-            do {
-                coins = try await getMarketData()
-                if coins.isEmpty == false {
-                    print(coins[0].name)
-                }
-            } catch let error {
-                print("Error: \((error))")
-            }
-        }
-    }
-    
-    private func handleHTTPResponses (_ httpResponse: HTTPURLResponse, data: Data) throws -> [MarketData] {
-        switch httpResponse.statusCode {
-        case 200:
-            return try JSONDecoder().decode([MarketData].self, from: data)
-        case 429:
-            alertContentString = "Request Limit Reached"
-        case 401:
-            alertContentString = "API key invalid"
-        case 402:
-            alertContentString = "Payment required for the API"
-        case 403:
-            alertContentString = "Unauthorized request"
-        case 404:
-            alertContentString = "Not found"
-        default:
-            alertContentString = "Error: code \(httpResponse.statusCode)"
-        }
-        showAPIAlert = true
-        return []
+    func updateCoins() async throws{
+        try await getMarketData()
     }
 
-    private func errorHandler (_ error: Error) {
-        if let urlError = error as? URLError {
-            switch urlError.code {
-            case .notConnectedToInternet:
-                alertContentString = "No network connection"
-            case .timedOut:
-                alertContentString = "Request timed out"
-            default:
-                alertContentString = "URL Error: \(urlError)"
-            }
-        } else {
-            alertContentString = "Error: \(error.localizedDescription)"
-        }
-    }
+//    private func errorHandler (_ error: Error) {
+//        if let urlError = error as? URLError {
+//            switch urlError.code {
+//            case .notConnectedToInternet:
+//                alertContentString = "No network connection"
+//            case .timedOut:
+//                alertContentString = "Request timed out"
+//            default:
+//                alertContentString = "URL Error: \(urlError)"
+//            }
+//        } else {
+//            alertContentString = "Error: \(error.localizedDescription)"
+//        }
+//    }
 }
