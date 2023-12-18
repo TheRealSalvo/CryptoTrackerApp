@@ -41,29 +41,20 @@ struct FavoriteCoinsView: View {
                             }
                             
                             if let data = data {
-                                CardView(card: Card(coin: data))
-                                    .contextMenu(menuItems: {
-                                        Button(action: {
-                                            removeFromFavourite(coin: coin)
-                                        }, label: {
-                                            Text("Remove from Favourites")
+                                NavigationLink{
+                                    DetailView(detailModel: data)
+                                } label: {
+                                    CardView(card: Card(coin: data))
+                                        .contextMenu(menuItems: {
+                                            Button(action: {
+                                                removeFromFavourite(coin: coin)
+                                            }, label: {
+                                                Text("Remove from Favourites")
+                                            })
+                                            
                                         })
-                                    })
+                                }
                             }
-                        }
-
-                        NavigationLink{
-                            DetailView(detailModel: data!)
-                        } label: {
-                            CardView(card: Card(coin: data!))
-                                .contextMenu(menuItems: {
-                                    Button(action: {
-                                        removeFromFavourite(coin: coin)
-                                    }, label: {
-                                        Text("Remove from Favourites")
-                                    })
-                                    
-                                })
                         }
                     }
                 }
