@@ -61,9 +61,9 @@ struct CustomText: View {
     
     private func formatVolume(_ volume: Double) -> String {
         if volume >= 1_000_000_000 {
-            return String(format: "Volume 24h: $%.01fB", volume / 1_000_000_000)
+            return String(format: "Volume: $%.01fB", volume / 1_000_000_000)
         } else if volume >= 1_000_000 {
-            return String(format: "Volume 24h: $%.01fM", volume / 1_000_000)
+            return String(format: "Volume: $%.01fM", volume / 1_000_000)
         } else {
             return "Volume 24h: N/A"
         }
