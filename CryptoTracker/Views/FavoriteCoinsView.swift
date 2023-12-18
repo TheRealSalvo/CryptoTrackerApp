@@ -14,6 +14,9 @@ struct FavoriteCoinsView: View {
     
     @Query private var favouriteCoins: [FavoriteCoin] = []
     
+    @State private var showAlert : Bool = false
+    @State private var alertDescription : String = ""
+    
     @State private var showSheet = false
     @State private var searchText = ""
     
@@ -81,15 +84,21 @@ struct FavoriteCoinsView: View {
     }
         .searchable(text: $searchText)
         .refreshable {
-            viewModel.updateCoins()
-        
+            Task{
+                do{
+                    try await viewModel.updateCoins()
+                }catch{
+                    alertDescription = error.localizedDescription
+                    showAlert.toggle()
+                }
+            }
         }
         .alert(
             "Error",
-            isPresented: $viewModel.showAPIAlert) {
+            isPresented: $showAlert) {
                 Button("OK", role: .cancel) { }
             } message: {
-                Text("Error \(String(describing: viewModel.alertContentString))")
+                Text("\(alertDescription)")
             }
     }
 
