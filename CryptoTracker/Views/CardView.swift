@@ -22,10 +22,18 @@ struct CardView: View {
                         .bold()
                         .foregroundStyle(Color.white)
                     Spacer()
-                    Text(formatPriceChange(card.priceChangePercentage24h))
-                        .foregroundStyle(Color.green)
-                    Image(systemName: "triangle.fill")
-                        .foregroundStyle(Color.green)
+                    
+                    if card.priceChangePercentage24h < 0.0 {
+                        Text(formatPriceChange(card.priceChangePercentage24h))
+                            .foregroundStyle(Color.red)
+                        Image(systemName: "triangle.fill").rotationEffect(.degrees(180))
+                            .foregroundStyle(Color.red)
+                    } else {
+                        Text(formatPriceChange(card.priceChangePercentage24h))
+                            .foregroundStyle(Color.green)
+                        Image(systemName: "triangle.fill")
+                            .foregroundStyle(Color.green)
+                    }
                 }
                 
                 Spacer()
@@ -70,8 +78,8 @@ struct CardView: View {
             .cornerRadius(20)
             .padding()
             .accessibilityElement()
-            .accessibilityLabel("Coin information card")
-            .accessibilityValue(String("Coin \(card.name), price \(card.value), 24 hour price change \(card.priceChangePercentage24h). Market cap \(card.marketCap), 24 hour volume \(card.volume)."))
+            .accessibilityLabel("Coin information")
+            .accessibilityValue(String("\(card.name), price \(card.value), 24 hour price change \(card.priceChangePercentage24h). Market cap \(card.marketCap), 24 hour volume \(card.volume)."))
         //add currency to voiceover
         }
     
