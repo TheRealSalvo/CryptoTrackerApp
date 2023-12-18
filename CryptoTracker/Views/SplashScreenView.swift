@@ -20,22 +20,33 @@ struct SplashScreenView: View {
                         .frame(maxWidth: 200)
                         .padding(.bottom, 40)
                     Text("Powered by")
-                    Image("CoinGeckoLogoWithDarkText")
+                    Image("CoinGeckoLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 200)
+                    
                     HStack{
                         Text("Fetching data from server...")
-                            .font(.title3)
+                            .font(.custom("orange", fixedSize: 10))
                         ProgressView()
                     }.padding(.top)
                 }
             } else {
                 TabView{
                     FavoriteCoinsView(viewModel: marketVM)
-                        .tabItem { Text("Favorites") }
+                        .tabItem { 
+                            HStack{
+                                Image(systemName: "star.fill")
+                                Text("Favorites")
+                                }
+                            }
                     WatchlistCoinsView(viewModel: marketVM)
-                        .tabItem { Text("Watchlist") }
+                        .tabItem { 
+                            HStack{
+                                Image(systemName: "list.bullet.rectangle.portrait.fill")
+                                Text("Watchlist")
+                            }
+                        }
                 }
             }
         }

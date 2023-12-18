@@ -15,6 +15,40 @@ struct ChartView: View {
     private var min : Double
     private var max : Double
     
+    public var accessibilityChartDescriptor: AXChartDescriptor? {
+        get {
+            let xAxis = AXNumericDataAxisDescriptor(
+                title: "time",
+                range: 0...Double(data.count),
+                gridlinePositions: [],
+                valueDescriptionProvider: { value in
+                    return "\(value)"
+                })
+            let yAxis = AXNumericDataAxisDescriptor(
+                title: "value",
+                range: self.min...self.max,
+                gridlinePositions: [],
+                valueDescriptionProvider: { value in
+                    return "\(value)"
+                })
+            let series = AXDataSeriesDescriptor(
+                name: "Series",
+                isContinuous: true,
+                dataPoints: data.map {
+                            .init(x: $0.x, y: $0.y)
+                        })
+            return AXChartDescriptor(
+                        title: "Chart representing some data",
+                        summary: nil,
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        additionalAxes: [],
+                        series: [series]
+                    )
+        }
+        set {}
+    }
+    
     init(of data: [Double], scaleFactor: Double = 1.2) {
         self.data = []
         

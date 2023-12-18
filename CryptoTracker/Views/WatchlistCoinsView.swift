@@ -62,7 +62,15 @@ struct WatchlistCoinsView: View {
     
     func addToWatchlist(coin: String){
         let newWatchedCoin = WatchlistCoin(name: coin)
+        print("Added to watchlist: \(coin)")
         modelContext.insert(newWatchedCoin)
+        
+        print("Current watchlist is")
+                let fetchDescriptor = FetchDescriptor<WatchlistCoin>()
+                let watched = try! modelContext.fetch(fetchDescriptor)
+                for coin in watched {
+                    print(coin.name)
+                }
     }
     
     func removeFromWatchlist(coin: WatchlistCoin){

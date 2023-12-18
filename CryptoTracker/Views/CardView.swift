@@ -15,16 +15,25 @@ struct CardView: View {
                     } placeholder: {
                         ProgressView()
                     }
+                    .clipShape(Circle())
                         
                     Text(card.name)
                         .font(.title)
                         .bold()
                         .foregroundStyle(Color.white)
                     Spacer()
-                    Text(formatPriceChange(card.priceChangePercentage24h))
-                        .foregroundStyle(Color.green)
-                    Image(systemName: "triangle.fill")
-                        .foregroundStyle(Color.green)
+                    
+                    if card.priceChangePercentage24h < 0.0 {
+                        Text(formatPriceChange(card.priceChangePercentage24h))
+                            .foregroundStyle(Color.red)
+                        Image(systemName: "triangle.fill").rotationEffect(.degrees(180))
+                            .foregroundStyle(Color.red)
+                    } else {
+                        Text(formatPriceChange(card.priceChangePercentage24h))
+                            .foregroundStyle(Color.green)
+                        Image(systemName: "triangle.fill")
+                            .foregroundStyle(Color.green)
+                    }
                 }
                 
                 Spacer()
@@ -36,7 +45,11 @@ struct CardView: View {
                                 Text(formatMarketCap(card.marketCap))
                                 Text(formatVolume(card.volume))
                             }
-                            .foregroundStyle(Color.gray)
+                            //.foregroundStyle(Color.gray)
+                            // swapped this to secondary so that it adapts to dark and high contrast modes
+                            .foregroundStyle(Color.secondary)
+                            //added a font size
+                            .font(.caption)
                             .bold()
                             Spacer()
                             
@@ -60,12 +73,13 @@ struct CardView: View {
             }
             .frame(maxHeight: 150)
             .padding()
-            .background(.banana)
+        //    .background(.banana)
+            .background(Color(UIColor.systemGray2))
             .cornerRadius(20)
             .padding()
             .accessibilityElement()
-            .accessibilityLabel("Coin information card")
-            .accessibilityValue(String("Coin \(card.name), price \(card.value), 24 hour price change \(card.priceChangePercentage24h). Market cap \(card.marketCap), 24 hour volume \(card.volume)."))
+            .accessibilityLabel("Coin information")
+            .accessibilityValue(String("\(card.name), price \(card.value), 24 hour price change \(card.priceChangePercentage24h). Market cap \(card.marketCap), 24 hour volume \(card.volume)."))
         //add currency to voiceover
         }
     
