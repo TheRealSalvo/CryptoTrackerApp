@@ -39,15 +39,6 @@ struct DetailView: View {
                     if(detailModel.sparkline != nil){
                         ChartView(of: detailModel.sparkline!.price)
                     }
-                    /*    Picker("Favorite Color", selection: $selectedColorIndex, content: {
-                     Text("1 hours").tag(0)
-                     Text("1 day").tag(1)
-                     Text("1 week").tag(2)
-                     Text("1 month").tag(3)
-                     Text("1 year").tag(4)
-                     
-                     })
-                     .pickerStyle(SegmentedPickerStyle())*/
                 }
                 .padding(.bottom,30)
                 
