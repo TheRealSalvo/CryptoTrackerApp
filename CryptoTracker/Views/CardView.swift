@@ -55,10 +55,10 @@ struct CardView: View {
                         CustomText(card.value, textType: .currency)
                             .foregroundStyle(Color.white)
                             .font(.title)
+                            .padding(.trailing, 20)
                     }
-                    .padding(.trailing, 10)
                     if(card.sparkline.count > 0){
-                        ChartView(of: card.sparkline)
+                        ChartView(of: card.sparkline, scaleFactor: 1.02)
                     }
              
                 }
@@ -76,7 +76,7 @@ struct CardView: View {
 }
 
 #Preview {
-    let card = Card(name: "BTC", value: 24.4, imageSymbol: "bitcoin", marketCap: 837_000_000_000, volume:  837_000_000_000, priceChangePercentage24h: 0.56, sparkline: [0, 3])
+    let card = Card(name: "BTC", value: 48000.1234, imageSymbol: "bitcoin", marketCap: 837_000_000_000, volume:  837_000_000_000, priceChangePercentage24h: 0.56, sparkline: [0, 3])
     return CardView(card: card)
 }
 
