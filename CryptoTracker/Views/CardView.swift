@@ -22,10 +22,18 @@ struct CardView: View {
                         .bold()
                         .foregroundStyle(Color.white)
                     Spacer()
-                    Text(formatPriceChange(card.priceChangePercentage24h))
-                        .foregroundStyle(Color.green)
-                    Image(systemName: "triangle.fill")
-                        .foregroundStyle(Color.green)
+                    
+                    if card.priceChangePercentage24h < 0.0 {
+                        Text(formatPriceChange(card.priceChangePercentage24h))
+                            .foregroundStyle(Color.red)
+                        Image(systemName: "triangle.fill").rotationEffect(.degrees(180))
+                            .foregroundStyle(Color.red)
+                    } else {
+                        Text(formatPriceChange(card.priceChangePercentage24h))
+                            .foregroundStyle(Color.green)
+                        Image(systemName: "triangle.fill")
+                            .foregroundStyle(Color.green)
+                    }
                 }
                 
                 Spacer()
