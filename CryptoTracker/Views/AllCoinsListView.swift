@@ -60,6 +60,9 @@ struct AllCoinsListView: View {
                     Image(systemName: addedCoins.contains(coin.name) ? "minus.circle.fill" : "plus.circle.fill")
                 }
             }
+            .accessibilityElement()
+            .accessibilityLabel("Coin information")
+            .accessibilityValue(String("\(coin.name), price \(coin.currentPrice), 24 hour price change \(coin.priceChangePercentage24h). Market cap \(coin.marketCap), 24 hour volume \(coin.totalVolume)."))
         }
     }
     
