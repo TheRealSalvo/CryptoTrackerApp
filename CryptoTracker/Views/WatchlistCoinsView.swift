@@ -27,7 +27,9 @@ struct WatchlistCoinsView: View {
                 
                 LazyVGrid(columns: [GridItem(.fixed(360))], spacing: 7) {
                     ForEach(watchlistCoins) { coin in
-                        let data = viewModel.getCoinMarketData(of: coin.name)
+                        let data = viewModel.coins.first { viewModelData in
+                            viewModelData.name == coin.name
+                        }
                         
                         CardView(card: Card(coin: data!))
                             .contextMenu(menuItems: {

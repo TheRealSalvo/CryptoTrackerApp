@@ -33,7 +33,7 @@ struct AllCoinsListView: View {
             placeholder: {
                     ProgressView()
                 }
-            .clipShape(Circle())
+            .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                 
                 VStack(alignment: .leading) {
                     Text(coin.symbol)

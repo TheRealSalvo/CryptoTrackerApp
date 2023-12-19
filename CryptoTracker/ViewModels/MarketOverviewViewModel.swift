@@ -7,27 +7,107 @@
 
 import Foundation
 
-class MarketOverviewViewModel: ObservableObject {
-    @Published var coins = [MarketData]()
+@Observable
+class MarketOverviewViewModel {
     
-    private var _coinName2CoinDataMap : [String : MarketData] = [:]
+    var coins = [MarketData]()
+    var showAPIAlert = false
+    var alertContentString: String = ""
     
-    private let decoder = JSONDecoder()
+    @ObservationIgnored
+    var currency: Currency = .dollars
+    @ObservationIgnored
+    let decoder = JSONDecoder()
+    @ObservationIgnored
+    var components = URLComponents(string: "https://api.coingecko.com")
     
-    @MainActor func getMarketData(vs_currency: Currency = .dollars) async throws {
-        let (data, _) = try await APICallsManager.shared.updateMarketData(vs_currency: vs_currency.rawValue)
-        coins = try JSONDecoder().decode([MarketData].self, from: data)
+    func getMarketData() async throws -> [MarketData] {
+        guard var components = self.components else{
+            throw URLError(.badURL)
+        }
         
-        for coin in coins{
-            _coinName2CoinDataMap.updateValue(coin, forKey: coin.name)
+        components.path       = "/api/v3/coins/markets"
+        components.queryItems = [
+            URLQueryItem(name: "vs_currency", value: "usd"),
+            URLQueryItem(name: "order",     value: "market_cap_desc"),
+            URLQueryItem(name: "per_page",  value: "100"),
+            URLQueryItem(name: "page",      value: "1"),
+            URLQueryItem(name: "sparkline", value: "true"),
+            URLQueryItem(name: "x_cg_demo_api_key", value: Bundle.main.infoDictionary?["API_KEY"] as? String),
+        ]
+        
+        guard let url = components.url else{
+            throw URLError(.badURL)
+        }
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                alertContentString = "Received non-HTTP response"
+                showAPIAlert = true
+                return []
+            }
+            
+            return try handleHTTPResponses(httpResponse, data: data)
+            
+        }
+        catch {
+            errorHandler(error)
+        }
+        showAPIAlert = true
+        return []
+    }
+    
+    init() {
+        updateCoins()
+    }
+    
+    func updateCoins() {
+        Task { @MainActor in
+            do {
+                coins = try await getMarketData()
+                if coins.isEmpty == false {
+                    print(coins[0].name)
+                }
+            } catch let error {
+                print("Error: \((error))")
+            }
         }
     }
     
-    func updateCoins() async throws{
-        try await getMarketData()
+    private func handleHTTPResponses (_ httpResponse: HTTPURLResponse, data: Data) throws -> [MarketData] {
+        switch httpResponse.statusCode {
+        case 200:
+            return try JSONDecoder().decode([MarketData].self, from: data)
+        case 429:
+            alertContentString = "Request Limit Reached"
+        case 401:
+            alertContentString = "API key invalid"
+        case 402:
+            alertContentString = "Payment required for the API"
+        case 403:
+            alertContentString = "Unauthorized request"
+        case 404:
+            alertContentString = "Not found"
+        default:
+            alertContentString = "Error: code \(httpResponse.statusCode)"
+        }
+        showAPIAlert = true
+        return []
     }
-    
-    func getCoinMarketData(of name: String) -> MarketData?{
-        return _coinName2CoinDataMap[name]
+
+    private func errorHandler (_ error: Error) {
+        if let urlError = error as? URLError {
+            switch urlError.code {
+            case .notConnectedToInternet:
+                alertContentString = "No network connection"
+            case .timedOut:
+                alertContentString = "Request timed out"
+            default:
+                alertContentString = "URL Error: \(urlError)"
+            }
+        } else {
+            alertContentString = "Error: \(error.localizedDescription)"
+        }
     }
 }
