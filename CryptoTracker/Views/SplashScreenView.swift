@@ -12,6 +12,9 @@ struct SplashScreenView: View {
     @Bindable
     var marketVM: MarketOverviewViewModel
     
+    @State private var showAlert : Bool = false
+    @State private var alertDescription : String = ""
+    
     var body: some View {
         ZStack{
             if (marketVM.coins.isEmpty){
@@ -52,13 +55,23 @@ struct SplashScreenView: View {
                 }
             }
         }
+        .onAppear(){
+            Task{
+                do{
+                    try await marketVM.updateCoins()
+                }catch{
+                    alertDescription = error.localizedDescription
+                    showAlert.toggle()
+                }
+            }
+        }
         .alert(
             "Error",
-            isPresented: $marketVM.showAPIAlert) {
-                    Button("OK", role: .cancel) { }
-                    } message: {
-                        Text("Error \(String(describing: marketVM.alertContentString))")
-                        }
+            isPresented: $showAlert) {
+                Button("OK", role: .cancel) { }
+                } message: {
+                    Text("\(alertDescription)")
+                    }
     }
 }
 

@@ -16,10 +16,11 @@ struct FavoriteCoinsView: View {
     
     @Query private var favouriteCoins: [FavoriteCoin] = []
     
+    @State private var showAlert : Bool = false
+    @State private var alertDescription : String = ""
+    
     @State private var showSheet = false
     @State private var searchText = ""
-    
-    let alertTitle: String = "Api error"
     
     // Computed property to filter favorite coins based on search text
     private var filteredCoins: [MergeData] {
@@ -36,21 +37,26 @@ struct FavoriteCoinsView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                // Use the filtered list here
-                ForEach(filteredCoins) { merge in
-                    NavigationLink{
-                        DetailView(detailModel: merge.data)
-                    } label: {
-                        CardView(card: Card(coin: merge.data))
-                            .contextMenu(menuItems: {
-                                Button(action: {
-                                    removeFromFavourite(coin: merge.coin)
-                                }, label: {
-                                    Text("Remove from Favourites")
-                                })
-                                
-                            })
+            ScrollView(.vertical, showsIndicators: false) {                
+                LazyVStack {
+                    ForEach(filteredCoins) { coin in
+                        let data = viewModel.getCoinMarketData(of: coin.name)
+                        
+                        if let data = data {
+                            NavigationLink{
+                                DetailView(detailModel: data)
+                            } label: {
+                                CardView(card: Card(coin: data))
+                                    .contextMenu(menuItems: {
+                                        Button(action: {
+                                            removeFromFavourite(coin: coin)
+                                        }, label: {
+                                            Text("Remove from Favourites")
+                                        })
+                                        
+                                    })
+                            }
+                        }
                     }
                 }
             }
@@ -75,14 +81,26 @@ struct FavoriteCoinsView: View {
             .searchable(text: $searchText)
             .refreshable {
                 viewModel.updateCoins()
+            }            
+        }
+    }
+        .searchable(text: $searchText)
+        .refreshable {
+            Task{
+                do{
+                    try await viewModel.updateCoins()
+                }catch{
+                    alertDescription = error.localizedDescription
+                    showAlert.toggle()
+                }
             }
         }
         .alert(
             "Error",
-            isPresented: $viewModel.showAPIAlert) {
+            isPresented: $showAlert) {
                 Button("OK", role: .cancel) { }
             } message: {
-                Text("Error \(String(describing: viewModel.alertContentString))")
+                Text("\(alertDescription)")
             }
     }
     

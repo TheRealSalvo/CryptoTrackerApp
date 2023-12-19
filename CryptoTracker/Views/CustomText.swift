@@ -53,11 +53,11 @@ struct CustomText: View {
     
     private func formatCurrency(_ value: Double) -> String {
         if(value > 1000){
-            return String(format: "$%.02f$", value)
+            return String(format: "$%.02f", value)
         }else if (value > 0){
-            return String(format: "$%.04f$", value)
+            return String(format: "$%.04f", value)
         }else{
-            return String(format: "$%.06f$", value)
+            return String(format: "$%.06f", value)
         }
     }
     
