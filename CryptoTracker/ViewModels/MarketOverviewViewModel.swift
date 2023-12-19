@@ -27,7 +27,7 @@ class MarketOverviewViewModel: ObservableObject {
         try await getMarketData()
     }
     
-    func getCoinDataByName(name : String) -> MarketData?{
+    func getCoinMarketData(of name: String) -> MarketData?{
         return _coinName2CoinDataMap[name]
     }
 }
