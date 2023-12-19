@@ -14,10 +14,11 @@ struct FavoriteCoinsView: View {
     
     @Query private var favouriteCoins: [FavoriteCoin] = []
     
+    @State private var showAlert : Bool = false
+    @State private var alertDescription : String = ""
+    
     @State private var showSheet = false
     @State private var searchText = ""
-    
-    let alertTitle: String = "Api error"
     
     // Computed property to filter favorite coins based on search text
     private var filteredCoins: [FavoriteCoin] {
@@ -34,11 +35,8 @@ struct FavoriteCoinsView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 
                 LazyVStack {
-                    // Use the filtered list here
                     ForEach(filteredCoins) { coin in
-                        let data = viewModel.coins.first { viewModelData in
-                            viewModelData.name == coin.name
-                        }
+                        let data = viewModel.getCoinMarketData(of: coin.name)
                         
                         if let data = data {
                             NavigationLink{
@@ -81,15 +79,21 @@ struct FavoriteCoinsView: View {
     }
         .searchable(text: $searchText)
         .refreshable {
-            viewModel.updateCoins()
-        
+            Task{
+                do{
+                    try await viewModel.updateCoins()
+                }catch{
+                    alertDescription = error.localizedDescription
+                    showAlert.toggle()
+                }
+            }
         }
         .alert(
             "Error",
-            isPresented: $viewModel.showAPIAlert) {
+            isPresented: $showAlert) {
                 Button("OK", role: .cancel) { }
             } message: {
-                Text("Error \(String(describing: viewModel.alertContentString))")
+                Text("\(alertDescription)")
             }
     }
 
