@@ -45,7 +45,6 @@ struct CardView: View {
                                 CustomText(card.marketCap, textType: .marketCap)
                                 CustomText(card.volume, textType: .volume)
                             }
-                            .foregroundStyle(Color.secondary)
                             .font(.caption)
                             .bold()
                         }
@@ -65,7 +64,7 @@ struct CardView: View {
             }
             .frame(maxHeight: 150)
             .padding()
-            .background(Color(UIColor.systemGray2))
+            .background(.banana)
             .cornerRadius(20)
             .padding()
             .accessibilityElement()
