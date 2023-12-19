@@ -12,127 +12,134 @@ struct DetailView: View {
     }
     
     var body: some View {
-            ScrollView{
-                VStack(alignment:.leading, spacing: 0) {
-                    HStack {
-                        VStack{
-                            Text(detailModel.symbol)
-                                .foregroundColor(.gray)
-                            AsyncImage(url: URL(string: detailModel.image)){ image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 50, height: 50)
-                            } placeholder: {
-                                ProgressView()
-                            }
+            VStack(alignment: .leading, spacing: 0) {
+                Divider()
+                HStack {
+                    HStack(spacing: 16) {
+                        AsyncImage(url: URL(string: detailModel.image)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 48, height: 48)
+                                .clipShape(Circle())
+                        } placeholder: {
+                            ProgressView()
                         }
                         
                         Text(detailModel.name)
                             .font(.title)
                             .bold()
                             .foregroundColor(.gray)
-                            .padding(.leading)
                         
                         Spacer()
-                        
-                        VStack(alignment: .trailing){
-                            Text(String(detailModel.currentPrice))
-                                .font(.title2)
-                                .bold()
-                            
-                            CustomText(detailModel.priceChangePercentage24h, textType: .priceChangePercentage)
-                                .font(.title2)
-                                .foregroundColor(detailModel.priceChangePercentage24h > 0 ? .green : .red)
-                                .bold()
-                        }
                     }
-                    
-                    if(detailModel.sparkline != nil){
-                        ChartView(of: detailModel.sparkline!.price, scaleFactor: 1.02)
-                            .frame(height: 200)
+                    VStack(alignment: .trailing){
+                        Text(String(detailModel.currentPrice))
+                            .font(.title3)
+                            .fontWeight(.bold)
+                        
+                        CustomText(detailModel.priceChangePercentage24h, textType: .priceChangePercentage)
+                            .font(.title3)
+                            .foregroundColor(detailModel.priceChangePercentage24h > 0 ? .green : .red)
+                            .fontWeight(.bold)
                     }
                 }
-                .padding(.bottom,30)
-                
-                
-                Text(detailModel.name + " informations")
-                    .font(.title2)
-                    .bold()
-                    .padding(.bottom,10)
-                
-                Grid(alignment: .topLeading){
-                    GridRow(alignment: .center){
-                        Text("Ranking")
-                        Spacer()
-                        Text(String(detailModel.marketCapRank))
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                Rectangle()
+                    .foregroundStyle(.foreground.opacity(0.175))
+                    .frame(height:0.5)
+                    .frame(maxWidth: .infinity)
+            }
+            .padding(0)
+            ScrollView(.vertical) {
+                if(detailModel.sparkline != nil){
+                    VStack {
+                        ChartView(of: detailModel.sparkline!.price, scaleFactor: 1.02)
+                            .frame(height: 200)
+                        Divider()
                     }
-                    Divider()
-                    GridRow{
-                        Text("ATH")
-                        Spacer()
-                        Text(String(detailModel.ath))
-                    }
-                    Divider()
-                    GridRow{
-                        Text("ATH Date ")
-                        Spacer()
-                        
-                        let date = dateFormatter.date(from: detailModel.athDate)
-                        if (date != nil){
-                            Text(date!, style: .date)
-                        }else{
-                            Text("N/A")
+                }
+                VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(detailModel.name + " " + "Informations")
+                                .font(.title)
+                                .bold()
+                            Spacer()
                         }
-                    }
-                    Divider()
-                    GridRow{
-                        Text("Higher price (24h)")
-                        Spacer()
-                        Text(String(detailModel.high24h))
-                    }
-                    Divider()
-                    GridRow{
-                        Text("Lowest price (24h)")
-                        Spacer()
-                        Text(String(detailModel.low24h))
-                    }
-                    Divider()
-                    GridRow{
-                        Text("Circulating Supply")
-                        Spacer()
-                        Text(String(detailModel.circulatingSupply))
-                    }
-                    Divider()
-                    GridRow{
-                        Text("Last Updated")
-                        Spacer()
+                        .padding(.bottom,10)
+                        HStack {
+                            Text("Last Updated")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .textCase(.uppercase)
+                                .kerning(1.5)
+                                .foregroundStyle(.foreground.opacity(0.5))
+                            Spacer()
+                        }
+                        
                         
                         let date = dateFormatter.date(from: detailModel.lastUpdated)
                         if (date != nil){
                             Text(date!, style: .date)
+                                .fontWeight(.bold)
                         }else{
                             Text("N/A")
+                                .fontWeight(.bold)
+                        }
+                    }
+                    
+                    VStack(spacing: 16) {
+                        DetailItemRow("Ranking", value: detailModel.marketCapRank)
+                        DetailItemRow("ATH", value: detailModel.ath)
+                        
+                        Divider()
+                        
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("ATH Date")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                    .textCase(.uppercase)
+                                    .kerning(1.0)
+                                    .foregroundStyle(.foreground.opacity(0.5))
+                                Spacer()
+                            }
+                            
+                            
+                            let date = dateFormatter.date(from: detailModel.athDate)
+                            if (date != nil){
+                                Text(date!, style: .date)
+                                    .fontWeight(.bold)
+                            }else{
+                                Text("N/A")
+                                    .fontWeight(.bold)
+                            }
                         }
                         
+                        DetailItemRow("Higher price (24h)", value: detailModel.high24h)
+                        DetailItemRow("Lowest price (24h)", value: detailModel.low24h)
+                        DetailItemRow("Circulating Supply", value: detailModel.circulatingSupply)
+                    }
+                    
+                }
+                .padding()
+            }
+            .padding(0)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItemGroup(placement:.navigationBarTrailing)
+                {
+                    Button {
+                        
+                    } label: {
+                        Label("Add to Favorites", systemImage: "star.fill")
                     }
                 }
-                .bold()
             }
-            
-            .toolbar(content: {
-                ToolbarItem(placement:.navigationBarTrailing)
-                {
-                    Image(systemName: "star.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                      //  .foregroundColor(.black)
-                  
-                }
-            })
-            Spacer()
+        }
     }
-}
 
 #Preview {
     let sparkline = [
