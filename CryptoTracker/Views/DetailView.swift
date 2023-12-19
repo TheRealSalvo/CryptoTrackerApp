@@ -128,16 +128,16 @@ struct DetailView: View {
             }
             .padding(0)
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItemGroup(placement:.navigationBarTrailing)
-                {
-                    Button {
-                        
-                    } label: {
-                        Label("Add to Favorites", systemImage: "star.fill")
-                    }
-                }
-            }
+//            .toolbar { // TODO: make it work
+//                ToolbarItemGroup(placement:.navigationBarTrailing)
+//                {
+//                    Button {
+//                        
+//                    } label: {
+//                        Label("Add to Favorites", systemImage: "star.fill")
+//                    }
+//                }
+//            }
         }
     }
 
