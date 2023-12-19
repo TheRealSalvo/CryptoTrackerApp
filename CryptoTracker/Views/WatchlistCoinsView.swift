@@ -27,14 +27,20 @@ struct WatchlistCoinsView: View {
                     ForEach(watchlistCoins) { coin in
                         let data = viewModel.getCoinMarketData(of: coin.name)
                         
-                        CardView(card: Card(coin: data!))
-                            .contextMenu(menuItems: {
-                                Button(action: {
-                                    removeFromWatchlist(coin: coin)
-                                }, label: {
-                                    Text("Remove from Watchlist")
-                                })
-                            })
+                        if let data = data {
+                            NavigationLink{
+                                DetailView(detailModel: data)
+                            } label: {
+                                CardView(card: Card(coin: data))
+                                    .contextMenu(menuItems: {
+                                            Button(role: .destructive, action: {
+                                                removeFromWatchlist(coin: coin)
+                                            }, label: {
+                                                Label("Remove from Watchlist", systemImage: "")
+                                            })
+                                        })
+                            }
+                        }
                     }
                 }
             }

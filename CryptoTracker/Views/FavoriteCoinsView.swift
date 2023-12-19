@@ -44,13 +44,12 @@ struct FavoriteCoinsView: View {
                             } label: {
                                 CardView(card: Card(coin: data))
                                     .contextMenu(menuItems: {
-                                        Button(action: {
-                                            removeFromFavourite(coin: coin)
-                                        }, label: {
-                                            Text("Remove from Favourites")
+                                            Button(role: .destructive, action: {
+                                                removeFromFavourite(coin: coin)
+                                            }, label: {
+                                                Label("Remove from Favourites", systemImage: "")
+                                            })
                                         })
-                                        
-                                    })
                             }
                         }
                     }
