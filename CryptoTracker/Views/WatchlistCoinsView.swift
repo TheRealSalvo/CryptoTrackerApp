@@ -12,7 +12,9 @@ import SwiftData
 
 struct WatchlistCoinsView: View {
     @Environment(\.modelContext) var modelContext
-    @ObservedObject var viewModel: MarketOverviewViewModel
+    
+    @Environment(MarketOverviewViewModel.self)
+    private var viewModel: MarketOverviewViewModel
     
     @Query private var watchlistCoins: [WatchlistCoin] = []
     
@@ -51,7 +53,7 @@ struct WatchlistCoinsView: View {
                            
                     }
                     .sheet(isPresented: $showSheet) {
-                        AllCoinsListView(viewModel: self.viewModel, function: addToWatchlist)
+                        AllCoinsListView(function: addToWatchlist)
                     }
                 }
             }
@@ -77,8 +79,8 @@ struct WatchlistCoinsView: View {
 }
 
 
-#Preview {
-    WatchlistCoinsView(
-        viewModel: MarketOverviewViewModel()
-    )
-}
+//#Preview {
+//    WatchlistCoinsView(
+//        viewModel: MarketOverviewViewModel()
+//    )
+//}

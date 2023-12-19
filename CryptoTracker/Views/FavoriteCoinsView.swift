@@ -10,7 +10,9 @@ import SwiftData
 
 struct FavoriteCoinsView: View {
     @Environment(\.modelContext) var modelContext
-    @ObservedObject var viewModel: MarketOverviewViewModel
+    
+    @Bindable
+    var viewModel: MarketOverviewViewModel
     
     @Query private var favouriteCoins: [FavoriteCoin] = []
     
@@ -21,19 +23,21 @@ struct FavoriteCoinsView: View {
     @State private var searchText = ""
     
     // Computed property to filter favorite coins based on search text
-    private var filteredCoins: [FavoriteCoin] {
-        if searchText.isEmpty {
-            return favouriteCoins
+    private var filteredCoins: [MergeData] {
+        let coins = if searchText.isEmpty {
+            favouriteCoins
         } else {
-            return favouriteCoins.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            favouriteCoins.filter { $0.name.lowercased().contains(searchText.lowercased())
+            }
         }
+        return coins.filter { data in
+            viewModel.coins.contains { coin in coin.name == data.name }
+        }.map { coin in MergeData(coin,viewModel.coins.first { $0.name == coin.name }!) }
     }
-
+    
     var body: some View {
-        
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                
+            ScrollView(.vertical, showsIndicators: false) {                
                 LazyVStack {
                     ForEach(filteredCoins) { coin in
                         let data = viewModel.getCoinMarketData(of: coin.name)
@@ -56,25 +60,28 @@ struct FavoriteCoinsView: View {
                     }
                 }
             }
-        
-        .scrollClipDisabled()
-        .padding()
-        .navigationTitle("Favourite Coins")
-        
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showSheet.toggle()
-                } label: {
-                    Image(systemName:"plus.circle")
-                    
+            .scrollClipDisabled()
+            .padding()
+            .navigationTitle("Favourite Coins")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showSheet.toggle()
+                    } label: {
+                        Image(systemName:"plus.circle")
+                        
+                    }
+                    .accessibilityLabel("Add coin to favourites")
+                    .sheet(isPresented: $showSheet) {
+                        AllCoinsListView(function: addToFavorites)
+                    }
                 }
-                .accessibilityLabel("Add coin to favourites")
-                .sheet(isPresented: $showSheet) {
-                    AllCoinsListView(viewModel: self.viewModel, function: addToFavorites)
-                }
+                
             }
-            
+            .searchable(text: $searchText)
+            .refreshable {
+                viewModel.updateCoins()
+            }            
         }
     }
         .searchable(text: $searchText)
@@ -96,7 +103,7 @@ struct FavoriteCoinsView: View {
                 Text("\(alertDescription)")
             }
     }
-
+    
     func addToFavorites (coin: String){
         let newFavoriteCoin = FavoriteCoin(name: coin)
         modelContext.insert(newFavoriteCoin)

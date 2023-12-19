@@ -5,7 +5,8 @@ struct AllCoinsListView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
     
-    @ObservedObject var viewModel: MarketOverviewViewModel
+    @Environment(MarketOverviewViewModel.self)
+    private var viewModel: MarketOverviewViewModel
     
     @State private var searchText = ""
     @State private var addedCoins: Set<String> = [] // Track added coins
@@ -88,6 +89,6 @@ struct AllCoinsListView: View {
     }
 }
 
-#Preview {
-    AllCoinsListView(viewModel: MarketOverviewViewModel(), function: {_ in print("test")})
-}
+//#Preview {
+//    AllCoinsListView(viewModel: MarketOverviewViewModel(), function: {_ in print("test")})
+//}

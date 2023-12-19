@@ -25,6 +25,9 @@ import SwiftData
 @main
 struct CryptoTrackerApp: App {
 
+    @State
+    private var vm: MarketOverviewViewModel = .init()
+    
     let container: ModelContainer
     
     init() {
@@ -43,7 +46,8 @@ struct CryptoTrackerApp: App {
     var body: some Scene {
         WindowGroup {
 
-            SplashScreenView(marketVM: MarketOverviewViewModel())
+            SplashScreenView(marketVM: vm)
+                .environment(vm)
 
         }
         .modelContainer(for: [FavoriteCoin.self, WatchlistCoin.self])
