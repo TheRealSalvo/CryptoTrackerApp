@@ -33,8 +33,7 @@ struct FavoriteCoinsView: View {
         
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
-                
-                LazyVStack {
+                VStack(spacing: 16) {
                     ForEach(filteredCoins) { coin in
                         let data = viewModel.getCoinMarketData(of: coin.name)
                         
@@ -54,12 +53,9 @@ struct FavoriteCoinsView: View {
                         }
                     }
                 }
+                .padding(.horizontal,16)
             }
-        
-        .scrollClipDisabled()
-        .padding()
         .navigationTitle("Favourite Coins")
-        
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
