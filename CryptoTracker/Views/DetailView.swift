@@ -4,6 +4,13 @@ struct DetailView: View {
     @State private var selectedColorIndex = 0
     let detailModel: MarketData
     
+    private let dateFormatter = ISO8601DateFormatter()
+    
+    init(detailModel: MarketData){
+        self.detailModel = detailModel
+        dateFormatter.formatOptions.insert(.withFractionalSeconds)
+    }
+    
     var body: some View {
             ScrollView{
                 VStack(alignment:.leading, spacing: 0) {
@@ -70,7 +77,13 @@ struct DetailView: View {
                     GridRow{
                         Text("ATH Date ")
                         Spacer()
-                        Text(String(detailModel.athDate))
+                        
+                        let date = dateFormatter.date(from: detailModel.athDate)
+                        if (date != nil){
+                            Text(date!, style: .date)
+                        }else{
+                            Text("N/A")
+                        }
                     }
                     Divider()
                     GridRow{
@@ -94,7 +107,14 @@ struct DetailView: View {
                     GridRow{
                         Text("Last Updated")
                         Spacer()
-                        Text(String(detailModel.lastUpdated))
+                        
+                        let date = dateFormatter.date(from: detailModel.lastUpdated)
+                        if (date != nil){
+                            Text(date!, style: .date)
+                        }else{
+                            Text("N/A")
+                        }
+                        
                     }
                 }
                 .bold()
