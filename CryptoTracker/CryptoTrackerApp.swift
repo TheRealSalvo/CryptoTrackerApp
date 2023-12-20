@@ -29,11 +29,11 @@ struct CryptoTrackerApp: App {
     
     init() {
         do {
-         container = try ModelContainer(for: FavoriteCoin.self)
-         //   container = try ModelContainer(for: FavoriteCoin.self, WatchlistCoin.self)
-
-            // Check if it's empty, if not returns the container that already exists
-            // try prepopulateDataIfNeeded()
+       //  container = try ModelContainer(for: FavoriteCoin.self)
+       //     print("created favs model container")
+            container = try ModelContainer(for: FavoriteCoin.self, WatchlistCoin.self)
+            print("created both model containers")
+            try prepopulateDataIfNeeded()
         } catch {
             fatalError("Failed to create container")
         }
@@ -42,7 +42,9 @@ struct CryptoTrackerApp: App {
     
     var body: some Scene {
         WindowGroup {
+
             SplashScreenView(marketVM: MarketOverviewViewModel())
+
         }
         .modelContainer(for: [FavoriteCoin.self, WatchlistCoin.self])
     }
@@ -56,6 +58,7 @@ struct CryptoTrackerApp: App {
         if try container.mainContext.fetch(itemFetchDescriptor).isEmpty {
             // Pre-populate the store
             let initialCoins = [FavoriteCoin(name: "Bitcoin")]
+            print("added btcoin as a default favourite")
             for coin in initialCoins {
                 container.mainContext.insert(coin)
             }

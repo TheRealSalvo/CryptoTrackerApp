@@ -10,6 +10,9 @@ import SwiftUI
 struct SplashScreenView: View {
     @ObservedObject var marketVM: MarketOverviewViewModel
     
+    @State private var showAlert : Bool = false
+    @State private var alertDescription : String = ""
+    
     var body: some View {
         ZStack{
             if (marketVM.coins.isEmpty){
@@ -20,20 +23,53 @@ struct SplashScreenView: View {
                         .frame(maxWidth: 200)
                         .padding(.bottom, 40)
                     Text("Powered by")
-                    Image("CoinGeckoLogoWithDarkText")
+                    Image("CoinGeckoLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 200)
+                    
                     HStack{
                         Text("Fetching data from server...")
-                            .font(.title3)
+                            .font(.custom("orange", fixedSize: 10))
                         ProgressView()
                     }.padding(.top)
                 }
             } else {
-                FavoriteCoinsView(viewModel: marketVM)
+                TabView{
+                    FavoriteCoinsView(viewModel: marketVM)
+                        .tabItem { 
+                            HStack{
+                                Image(systemName: "star.fill")
+                                Text("Favorites")
+                                }
+                            }
+                    WatchlistCoinsView(viewModel: marketVM)
+                        .tabItem { 
+                            HStack{
+                                Image(systemName: "list.bullet.rectangle.portrait.fill")
+                                Text("Watchlist")
+                            }
+                        }
+                }
             }
         }
+        .onAppear(){
+            Task{
+                do{
+                    try await marketVM.updateCoins()
+                }catch{
+                    alertDescription = error.localizedDescription
+                    showAlert.toggle()
+                }
+            }
+        }
+        .alert(
+            "Error",
+            isPresented: $showAlert) {
+                Button("OK", role: .cancel) { }
+                } message: {
+                    Text("\(alertDescription)")
+                    }
     }
 }
 

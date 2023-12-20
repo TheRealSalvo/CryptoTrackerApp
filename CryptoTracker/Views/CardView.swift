@@ -1,10 +1,3 @@
-//
-//  CardView.swift
-//  CryptoTracker
-//
-//  Created by SHOHJAHON on 13/12/23.
-//
-
 import SwiftUI
 
 struct CardView: View {
@@ -14,20 +7,33 @@ struct CardView: View {
             
             VStack(alignment: .leading){
                 HStack {
-                    card.imageSymbol
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50)
-                        .frame(height: 50)
+                    AsyncImage(url: URL(string: card.imageURL)){ image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .clipShape(Circle())
+                        
                     Text(card.name)
                         .font(.title)
                         .bold()
                         .foregroundStyle(Color.white)
                     Spacer()
-                    Text("\(card.priceChangePercentage24h)")
-                        .foregroundStyle(Color.green)
-                    Image(systemName: "triangle.fill")
-                        .foregroundStyle(Color.green)
+                    
+                    if card.priceChangePercentage24h < 0.0 {
+                        CustomText(card.priceChangePercentage24h, textType: .priceChangePercentage)
+                            .foregroundStyle(Color.red)
+                        Image(systemName: "triangle.fill").rotationEffect(.degrees(180))
+                            .foregroundStyle(Color.red)
+                    } else {
+                        CustomText(card.priceChangePercentage24h, textType: .priceChangePercentage)
+                            .foregroundStyle(Color.green)
+                        Image(systemName: "triangle.fill")
+                            .foregroundStyle(Color.green)
+                    }
                 }
                 
                 Spacer()
@@ -36,41 +42,41 @@ struct CardView: View {
                     VStack(alignment:.leading) {
                         HStack {
                             VStack(alignment: .leading) {
-                               
-                                Text("\(card.marketCap)$")
-                                Text("\(card.volume)")
-                                
-                            }   .foregroundStyle(Color.gray)
-                                .bold()
-                            
-                            Spacer()
-                            
-                            ChartView(of: card.sparkline)
-                               .frame(maxWidth: 100)
+                                CustomText(card.marketCap, textType: .marketCap)
+                                CustomText(card.volume, textType: .volume)
+                            }
+                            .font(.caption)
+                            .bold()
                         }
                         
                         Spacer()
                         
-                        VStack(alignment: .leading) {
-                            Text("\(card.value)$")
-                                .foregroundStyle(Color.white)
-                                .font(.title)
-                        }
+                        CustomText(card.value, textType: .currency)
+                            .foregroundStyle(Color.white)
+                            .font(.title)
+                            .padding(.trailing, 20)
                     }
-                    Spacer()
+                    if(card.sparkline.count > 0){
+                        ChartView(of: card.sparkline, scaleFactor: 1.02)
+                    }
              
                 }
             }
             .frame(maxHeight: 150)
             .padding()
             .background(.banana)
-            .cornerRadius(10)
-            .padding()
+            .cornerRadius(20)
+            .clipShape(RoundedRectangle(cornerRadius:20))
+            .padding(0)
+            .accessibilityElement()
+            .accessibilityLabel("Coin information")
+            .accessibilityValue(String("\(card.name), price \(card.value), 24 hour price change \(card.priceChangePercentage24h). Market cap \(card.marketCap), total volume \(card.volume)."))
+        //add currency to voiceover
         }
-    }
-
+}
 
 #Preview {
-    let card = Card(name: "BTC", value:23.45 , imageSymbol: Image("bitcoin"), marketCap: 43.75, volume: 31.60, priceChangePercentage24h: 0.56)
+    let card = Card(name: "BTC", value: 48000.1234, imageSymbol: "bitcoin", marketCap: 837_000_000_000, volume:  837_000_000_000, priceChangePercentage24h: 0.56, sparkline: [0, 3])
     return CardView(card: card)
 }
+
