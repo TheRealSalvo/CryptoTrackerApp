@@ -27,4 +27,5 @@ Build and run: Open the project in Xcode and hit the play button!
 Acknowledgments:
 
 The CoinGecko team for their awesome API!
-Beutifull devs Salvatore, Shox and Paul for Contributions
+
+Beutifull devs: Salvatore, Shox and Paul for Contributions
