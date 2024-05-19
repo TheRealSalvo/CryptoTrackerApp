@@ -1,11 +1,30 @@
-#  CryptoTracker
+CryptoTracker: Your SwiftUI Crypto Companion
 
-Fun project to experiment with api calls on swift and some apple frameworks.  
+CryptoTracker is a beautifully designed iOS app built entirely with SwiftUI. It leverages the CoinGecko API to provide real-time cryptocurrency price tracking and market insights, putting a strong emphasis on user experience (UX).
+
+Key Features
+
+Real-Time Price Tracking: Stay up-to-date with the latest cryptocurrency prices, powered by CoinGecko's reliable API.
+Intuitive Interface: A clean, modern SwiftUI design that makes navigating and understanding crypto data easy.
+Personalized Watchlist: Create and manage a customized watchlist of your favorite cryptocurrencies.
+Detailed Coin Views: Dive deep into specific coins with comprehensive price charts, market cap data, and more.
 
 
-## Setup
-You can clone the repository with ```git clone https://github.com/TheRealSalvo/CryptoTrackerApp.git```  
 
-You should use a demo api key from CoinGecko, you can obtain one for free following this [guide](https://support.coingecko.com/hc/en-us/articles/21880397454233).  
+Tech Stack
 
-Create a Config file in XCode and paste the following line ```API_KEY = <YOUR_API_KEY_HERE>```, replacing <YOUR_API_KEY_HERE> with your actual api key
+SwiftUI: Apple's declarative UI framework for seamless, modern interface design.
+CoinGecko API: Robust and reliable source for cryptocurrency market data.
+
+Getting Started
+
+Clone the repository: git clone [Your Repo URL]
+Install dependencies: [If applicable, e.g., using Swift Package Manager]
+Obtain a CoinGecko API key: [Instructions on how to get an API key]
+Replace placeholders: Update API key and any other necessary configuration values.
+Build and run: Open the project in Xcode and hit the play button!
+
+Acknowledgments:
+
+The CoinGecko team for their awesome API!
+Beutifull devs Salvatore, Shox and Paul for Contributions
